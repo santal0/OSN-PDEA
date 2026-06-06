@@ -104,60 +104,55 @@ DEFAULT_CONFIG = {
 }
 
 DEFAULT_KEYWORDS = {
-    "shopping": ["会员", "优惠", "折扣", "购买", "省钱"],
-    "emotion": ["恋爱", "陪伴", "聊天", "孤独", "朋友"],
-    "entertainment": ["搞笑", "明星", "短剧", "综艺", "热点"],
-    "game": ["游戏", "抽卡", "皮肤", "活动", "礼包"],
-    "finance": ["理财", "贷款", "信用卡", "投资", "保险"],
+    "shopping": ["会员", "百亿补贴", "限时秒杀", "满减券", "拼单"],
+    "daily_necessities": ["纸巾", "洗发水", "洗衣液", "零食", "垃圾袋"],
+    "electronics_high_value": ["手机", "联想笔记本", "索尼相机", "平板电脑", "手柄"],
+    "apparel_beauty": ["连衣裙", "高跟鞋", "防晒衣", "粉底液", "面膜"],
 }
-
 DEFAULT_PROFILES = {
     "high_payment_shopping": {
-        "description": "高付费/购物倾向 profile；更频繁进入决策/购买界面。",
+        "description": "高付费意向/数码发烧友画像。频繁进入核心决策与高客单价结算页，是‘预设分期、默认加购保险、诱导办大额会员’的主要受害者。",
         "behavior": {
             "visit_homepage": 0.05,
-            "search_keyword": 0.20,
-            "browse_or_scroll_page": 0.45,
-            "decision_interface_visit": 0.30,
+            "search_keyword": 0.25,            # 高频主动搜索目标明确的商品
+            "browse_or_scroll_page": 0.40,
+            "decision_interface_visit": 0.30,  # 高频点击购买、配置参数、进入结算
         },
         "key_words": {
-            "shopping": 0.55,
-            "game": 0.15,
-            "entertainment": 0.10,
-            "finance": 0.15,
-            "emotion": 0.05,
+            "electronics_high_value": 0.50,    # 半数搜索集中在高客单价数码，以此高频触发金融、分期、捆绑暗黑模式
+            "shopping": 0.20,        # 寻找大额券
+            "apparel_beauty": 0.20,            # 常规潮流消费
+            "daily_necessities": 0.10,          # 极少在平台浪费时间搜日用品
         },
     },
     "low_payment_browsing": {
-        "description": "低付费/普通浏览 profile；更偏浏览和首页。",
+        "description": "低付费/闲逛消磨时间画像。偏向首页和信息流的日常浏览，极少点击购买，主要测试信息流中的‘伪装广告、低价诱导点击’等暗黑模式。",
         "behavior": {
-            "visit_homepage": 0.15,
-            "search_keyword": 0.20,
-            "browse_or_scroll_page": 0.55,
-            "decision_interface_visit": 0.10,
+            "visit_homepage": 0.15,            # 经常回首页刷推荐流
+            "search_keyword": 0.15,            # 较少主动搜索
+            "browse_or_scroll_page": 0.60,     # 绝大部分时间在无目的地滑动页面
+            "decision_interface_visit": 0.10,  # 极少进入结算或深层决策界面
         },
         "key_words": {
-            "shopping": 0.15,
-            "game": 0.20,
-            "entertainment": 0.35,
-            "finance": 0.10,
-            "emotion": 0.20,
+            "apparel_beauty": 0.45,            # 闲逛时最爱看服饰、美妆推荐
+            "daily_necessities": 0.35,         # 偶尔搜搜刚需日用品对比价格
+            "shopping": 0.15,        # 随便看看有什么秒杀
+            "electronics_high_value": 0.05,    # 几乎不看高价大件
         },
     },
-    "emotion_companion": {
-        "description": "情感陪伴 profile；更常搜索陪伴/聊天类关键词。",
+    "bargain_hunter": {
+        "description": "促销敏感/薅羊毛画像。高频流连于各种低价会场，极易触发‘摇红包弹窗反复打断、砍一刀交互摩擦、默认勾选先用后付’等暗黑模式。",
         "behavior": {
             "visit_homepage": 0.10,
-            "search_keyword": 0.30,
-            "browse_or_scroll_page": 0.45,
-            "decision_interface_visit": 0.15,
+            "search_keyword": 0.35,            # 高频通过搜索栏寻找特定活动和低价商品
+            "browse_or_scroll_page": 0.35,
+            "decision_interface_visit": 0.20,  # 频繁点击“免费领”、“抽奖”、“领福利”等高诱导性按钮
         },
         "key_words": {
-            "shopping": 0.05,
-            "game": 0.10,
-            "entertainment": 0.20,
-            "finance": 0.05,
-            "emotion": 0.60,
+            "shopping": 0.60,
+            "daily_necessities": 0.30,         # 倾向于在平台购买便宜的纸巾、零食等刚需
+            "apparel_beauty": 0.10,            # 偶尔看看低价服饰
+            "electronics_high_value": 0.00,
         },
     },
 }
