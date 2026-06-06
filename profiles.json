@@ -1,0 +1,79 @@
+{
+  "profiles": {
+    "high_payment_shopping": {
+      "description": "高付费意向/数码发烧友画像。频繁进入核心决策与高客单价结算页，是‘预设分期、默认加购保险、诱导办大额会员’的主要受害者。",
+      "behavior": {
+        "visit_homepage": 0.05,
+        "search_keyword": 0.25,
+        "browse_or_scroll_page": 0.4,
+        "decision_interface_visit": 0.3
+      },
+      "key_words": {
+        "electronics_high_value": 0.5,
+        "shopping": 0.2,
+        "apparel_beauty": 0.2,
+        "daily_necessities": 0.1
+      }
+    },
+    "low_payment_browsing": {
+      "description": "低付费/闲逛消磨时间画像。偏向首页和信息流的日常浏览，极少点击购买，主要测试信息流中的‘伪装广告、低价诱导点击’等暗黑模式。",
+      "behavior": {
+        "visit_homepage": 0.15,
+        "search_keyword": 0.15,
+        "browse_or_scroll_page": 0.6,
+        "decision_interface_visit": 0.1
+      },
+      "key_words": {
+        "apparel_beauty": 0.45,
+        "daily_necessities": 0.35,
+        "shopping": 0.15,
+        "electronics_high_value": 0.05
+      }
+    },
+    "bargain_hunter": {
+      "description": "促销敏感/薅羊毛画像。高频流连于各种低价会场，极易触发‘摇红包弹窗反复打断、砍一刀交互摩擦、默认勾选先用后付’等暗黑模式。",
+      "behavior": {
+        "visit_homepage": 0.1,
+        "search_keyword": 0.35,
+        "browse_or_scroll_page": 0.35,
+        "decision_interface_visit": 0.2
+      },
+      "key_words": {
+        "shopping": 0.6,
+        "daily_necessities": 0.3,
+        "apparel_beauty": 0.1,
+        "electronics_high_value": 0.0
+      }
+    }
+  },
+  "keywords": {
+    "shopping": [
+      "折扣",
+      "百亿补贴",
+      "限时秒杀",
+      "满减券",
+      "拼单"
+    ],
+    "daily_necessities": [
+      "盖浇饭",
+      "黄焖鸡",
+      "沙县小吃",
+      "兰州拉面",
+      "快餐套餐"
+    ],
+    "electronics_high_value": [
+      "会员红包",
+      "超级会员",
+      "品牌餐厅",
+      "高端咖啡",
+      "品质外卖"
+    ],
+    "apparel_beauty": [
+      "轻食",
+      "沙拉",
+      "低脂餐",
+      "无糖饮品",
+      "健身餐"
+    ]
+  }
+}

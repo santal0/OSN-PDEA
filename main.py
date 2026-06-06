@@ -104,10 +104,10 @@ DEFAULT_CONFIG = {
 }
 
 DEFAULT_KEYWORDS = {
-    "shopping": ["会员", "百亿补贴", "限时秒杀", "满减券", "拼单"],
-    "daily_necessities": ["纸巾", "洗发水", "洗衣液", "零食", "垃圾袋"],
-    "electronics_high_value": ["手机", "联想笔记本", "索尼相机", "平板电脑", "手柄"],
-    "apparel_beauty": ["连衣裙", "高跟鞋", "防晒衣", "粉底液", "面膜"],
+    "shopping": ["折扣", "百亿补贴", "限时秒杀", "满减券", "拼单"],
+    "daily_necessities": ["盖浇饭","黄焖鸡","沙县小吃","兰州拉面","快餐套餐"],
+    "electronics_high_value": ["会员红包","超级会员","品牌餐厅","高端咖啡","品质外卖"],
+    "apparel_beauty": ["轻食","沙拉","低脂餐","无糖饮品","健身餐"],
 }
 DEFAULT_PROFILES = {
     "high_payment_shopping": {
