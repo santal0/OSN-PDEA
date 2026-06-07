@@ -1,0 +1,7 @@
+pyautogui
+pillow
+matplotlib
+pandas
+numpy
+seaborn
+scipy

@@ -1,0 +1,26 @@
+{
+    "eating": [
+        "DaZhongDianPing",
+        "ELeMe",
+        "HeMa",
+        "MeiTuan"
+    ],
+    "shopping": [
+        "jingdong",
+        "pinduoduo",
+        "taobao",
+        "xianyu"
+    ],
+    "social": [
+        "DouYin",
+        "KuaiShou",
+        "WeiBo",
+        "XiaoHongShu"
+    ],
+    "entertainment": [
+        "BaiDuTieBa",
+        "BiliBili",
+        "WangYiYun",
+        "ZhiHu"
+    ]
+}

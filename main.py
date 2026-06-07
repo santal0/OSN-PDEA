@@ -414,6 +414,20 @@ def export_stats(records: List[StepRecord], output_dir: Path, tau: float) -> Non
     make_plots(records, stats_dir)
     print(f"统计结果已导出：{stats_dir}")
 
+def export_stats_by_type(records: List[StepRecord], output_dir: Path, app_metrics_path: Path, tau: float) -> None:
+    stats_dir = output_dir / "statistics_by_type"
+    stats_dir.mkdir(parents=True, exist_ok=True)
+    
+    app_groups = load_json(app_metrics_path)
+    
+    if pd is not None:
+        rows = records_to_rows(records)
+        if rows:
+            df = pd.DataFrame(rows)
+            for group in app_groups:
+                group_df = df[df['app'].isin(app_groups[group])]
+                group_df.to_csv(stats_dir / f"all_steps_{group}.csv", index=False, encoding="utf-8-sig")
+    print(f"按应用类型划分的统计结果已导出：{stats_dir}")
 
 def make_plots(records: List[StepRecord], stats_dir: Path) -> None:
     if plt is None or not records:
@@ -622,6 +636,7 @@ def main() -> None:
         elif choice == "3":
             records = load_all_records(output_dir)
             export_stats(records, output_dir, float(config.get("differential_tau", 0.20)))
+            export_stats_by_type(records, output_dir, base / "app_metrics.json", float(config.get("differential_tau", 0.20)))
         elif choice == "4":
             edit_profile(profiles_data, profiles_path)
         elif choice == "5":
