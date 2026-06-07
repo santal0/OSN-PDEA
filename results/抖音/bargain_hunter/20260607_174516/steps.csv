@@ -1,0 +1,31 @@
+﻿app,profile_id,step,timestamp,action,category,keyword,instruction,screenshot_path,note,I,F,P,C,S,N,FA
+抖音,bargain_hunter,1,2026-06-07T17:46:13,search_keyword,shopping,会员,请在搜索框输入“会员”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_001.png,,2.0,1.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,2,2026-06-07T17:46:49,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_002.png,,1.0,1.0,1.0,0.0,0.0,1.0,1.0
+抖音,bargain_hunter,3,2026-06-07T17:48:54,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_003.png,,2.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,4,2026-06-07T17:49:38,visit_homepage,,,请回到 抖音 首页，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_004.png,,1.0,0.0,0.0,0.0,0.0,1.0,0.0
+抖音,bargain_hunter,5,2026-06-07T17:50:14,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_005.png,,2.0,0.0,0.0,1.0,0.0,0.0,0.0
+抖音,bargain_hunter,6,2026-06-07T17:51:20,search_keyword,shopping,百亿补贴,请在搜索框输入“百亿补贴”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_006.png,,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,7,2026-06-07T17:51:43,visit_homepage,,,请回到 抖音 首页，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_007.png,,1.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,8,2026-06-07T17:52:01,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_008.png,,1.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,9,2026-06-07T17:52:22,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_009.png,,1.0,1.0,0.0,0.0,0.0,1.0,1.0
+抖音,bargain_hunter,10,2026-06-07T17:53:12,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_010.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,11,2026-06-07T17:53:33,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_011.png,,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,12,2026-06-07T17:53:48,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_012.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,13,2026-06-07T17:55:03,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_013.png,,1.0,0.0,0.0,1.0,0.0,0.0,0.0
+抖音,bargain_hunter,14,2026-06-07T17:55:18,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_014.png,,1.0,0.0,1.0,0.0,0.0,1.0,0.0
+抖音,bargain_hunter,15,2026-06-07T17:56:05,search_keyword,shopping,百亿补贴,请在搜索框输入“百亿补贴”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_015.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,16,2026-06-07T17:56:15,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_016.png,,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,17,2026-06-07T17:56:30,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_017.png,,1.0,1.0,0.0,0.0,0.0,1.0,0.0
+抖音,bargain_hunter,18,2026-06-07T17:56:54,visit_homepage,,,请回到 抖音 首页，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_018.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,19,2026-06-07T17:57:22,search_keyword,shopping,百亿补贴,请在搜索框输入“百亿补贴”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_019.png,,2.0,0.0,1.0,1.0,0.0,0.0,0.0
+抖音,bargain_hunter,20,2026-06-07T17:58:39,search_keyword,shopping,拼单,请在搜索框输入“拼单”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_020.png,,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,21,2026-06-07T17:58:49,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_021.png,,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,22,2026-06-07T17:59:11,search_keyword,shopping,满减券,请在搜索框输入“满减券”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_022.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+抖音,bargain_hunter,23,2026-06-07T17:59:41,search_keyword,shopping,拼单,请在搜索框输入“拼单”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_023.png,,1.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,24,2026-06-07T17:59:51,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_024.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,25,2026-06-07T18:00:02,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_025.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,26,2026-06-07T18:00:31,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_026.png,,2.0,1.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,27,2026-06-07T18:00:53,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_027.png,0,2.0,0.0,1.0,0.0,0.0,0.0,0.0
+抖音,bargain_hunter,28,2026-06-07T18:01:33,search_keyword,shopping,会员,请在搜索框输入“会员”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_028.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+抖音,bargain_hunter,29,2026-06-07T18:02:00,search_keyword,shopping,满减券,请在搜索框输入“满减券”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_029.png,,2.0,1.0,1.0,1.0,0.0,1.0,0.0
+抖音,bargain_hunter,30,2026-06-07T18:02:25,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/抖音/bargain_hunter/20260607_174516/screenshots/step_030.png,,2.0,1.0,1.0,0.0,0.0,0.0,0.0

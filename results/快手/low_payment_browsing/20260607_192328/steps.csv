@@ -1,0 +1,31 @@
+﻿app,profile_id,step,timestamp,action,category,keyword,instruction,screenshot_path,note,I,F,P,C,S,N,FA
+快手,low_payment_browsing,1,2026-06-07T19:24:04,search_keyword,apparel_beauty,高跟鞋,请在搜索框输入“高跟鞋”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_001.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,2,2026-06-07T19:24:59,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_002.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,3,2026-06-07T19:25:16,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_003.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,4,2026-06-07T19:25:41,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_004.png,,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,5,2026-06-07T19:25:55,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_005.png,,1.0,0.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,6,2026-06-07T19:26:07,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_006.png,,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,7,2026-06-07T19:26:49,search_keyword,daily_necessities,洗发水,请在搜索框输入“洗发水”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_007.png,,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,8,2026-06-07T19:27:12,search_keyword,daily_necessities,纸巾,请在搜索框输入“纸巾”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_008.png,,2.0,0.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,9,2026-06-07T19:28:40,visit_homepage,,,请回到 快手 首页，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_009.png,,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,10,2026-06-07T19:28:57,visit_homepage,,,请回到 快手 首页，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_010.png,,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,11,2026-06-07T19:29:32,search_keyword,apparel_beauty,高跟鞋,请在搜索框输入“高跟鞋”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_011.png,,2.0,0.0,1.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,12,2026-06-07T19:30:24,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_012.png,,1.0,1.0,0.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,13,2026-06-07T19:30:42,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_013.png,,2.0,1.0,0.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,14,2026-06-07T19:30:55,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_014.png,,2.0,1.0,0.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,15,2026-06-07T19:31:21,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_015.png,,2.0,0.0,0.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,16,2026-06-07T19:33:12,search_keyword,daily_necessities,洗衣液,请在搜索框输入“洗衣液”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_016.png,,1.0,0.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,17,2026-06-07T19:33:37,search_keyword,apparel_beauty,连衣裙,请在搜索框输入“连衣裙”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_017.png,,2.0,0.0,1.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,18,2026-06-07T19:34:01,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_018.png,,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,19,2026-06-07T19:34:23,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_019.png,,2.0,1.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,20,2026-06-07T19:34:48,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_020.png,,2.0,1.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,21,2026-06-07T19:36:02,search_keyword,shopping,会员,请在搜索框输入“会员”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_021.png,,2.0,1.0,0.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,22,2026-06-07T19:36:30,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_022.png,,1.0,1.0,0.0,0.0,0.0,1.0,1.0
+快手,low_payment_browsing,23,2026-06-07T19:37:02,visit_homepage,,,请回到 快手 首页，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_023.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,24,2026-06-07T19:37:18,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_024.png,,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+快手,low_payment_browsing,25,2026-06-07T19:37:34,visit_homepage,,,请回到 快手 首页，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_025.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,26,2026-06-07T19:38:07,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_026.png,,1.0,0.0,0.0,0.0,0.0,1.0,0.0
+快手,low_payment_browsing,27,2026-06-07T19:38:26,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_027.png,,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,28,2026-06-07T19:38:42,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_028.png,,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,29,2026-06-07T19:39:05,search_keyword,daily_necessities,零食,请在搜索框输入“零食”，点击第一个自然/推荐结果，等待 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_029.png,,2.0,0.0,1.0,0.0,0.0,0.0,0.0
+快手,low_payment_browsing,30,2026-06-07T19:39:24,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results/快手/low_payment_browsing/20260607_192328/screenshots/step_030.png,,2.0,0.0,0.0,0.0,0.0,0.0,0.0

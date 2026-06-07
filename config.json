@@ -1,0 +1,11 @@
+{
+  "app": "APP_NAME",
+  "max_steps": 30,
+  "random_seed": 20260603,
+  "screenshot_after_each_action": true,
+  "stability_window": 5,
+  "stability_epsilon": 0.1,
+  "differential_tau": 0.2,
+  "screenshot_delay_seconds": 3,
+  "output_dir": "results"
+}
