@@ -1,0 +1,31 @@
+﻿app,profile_id,step,timestamp,action,category,keyword,instruction,screenshot_path,note,I,F,P,C,S,N,FA
+xianyu,bargain_hunter,1,2026-06-06T16:15:14,search_keyword,shopping,满减券,请在搜索框输入“满减券”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_001.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,2,2026-06-06T16:15:28,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_002.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,3,2026-06-06T16:15:45,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_003.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,4,2026-06-06T16:16:02,search_keyword,daily_necessities,零食,请在搜索框输入“零食”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_004.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,5,2026-06-06T16:16:11,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_005.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,6,2026-06-06T16:16:24,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_006.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,7,2026-06-06T16:16:40,search_keyword,daily_necessities,垃圾袋,请在搜索框输入“垃圾袋”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_007.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,8,2026-06-06T16:17:11,search_keyword,shopping,会员,请在搜索框输入“会员”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_008.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,9,2026-06-06T16:17:25,search_keyword,apparel_beauty,粉底液,请在搜索框输入“粉底液”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_009.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,10,2026-06-06T16:17:42,visit_homepage,,,请回到 xianyu 首页，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_010.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,11,2026-06-06T16:18:03,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_011.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,12,2026-06-06T16:18:15,visit_homepage,,,请回到 xianyu 首页，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_012.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,13,2026-06-06T16:18:30,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_013.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,14,2026-06-06T16:18:47,search_keyword,shopping,限时秒杀,请在搜索框输入“限时秒杀”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_014.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,15,2026-06-06T16:19:08,search_keyword,daily_necessities,零食,请在搜索框输入“零食”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_015.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,16,2026-06-06T16:19:19,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_016.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,17,2026-06-06T16:19:33,search_keyword,shopping,满减券,请在搜索框输入“满减券”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_017.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,18,2026-06-06T16:19:46,search_keyword,shopping,会员,请在搜索框输入“会员”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_018.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,19,2026-06-06T16:20:09,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_019.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,20,2026-06-06T16:21:00,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_020.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,21,2026-06-06T16:21:19,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_021.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,22,2026-06-06T16:21:29,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_022.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,23,2026-06-06T16:21:48,search_keyword,daily_necessities,零食,请在搜索框输入“零食”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_023.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,24,2026-06-06T16:22:04,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_024.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,25,2026-06-06T16:22:20,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_025.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,26,2026-06-06T16:22:43,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_026.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,27,2026-06-06T16:22:56,browse_or_scroll_page,,,请在当前页面向下浏览/滑动一次，停留观察 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_027.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,28,2026-06-06T16:23:11,search_keyword,shopping,百亿补贴,请在搜索框输入“百亿补贴”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_028.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,29,2026-06-06T16:23:28,decision_interface_visit,,,请点击当前屏幕中最明显的决策入口，例如内容详情、会员、订阅、充值、购买、领取优惠等，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_029.png,,0,0,0,0,0,0,1
+xianyu,bargain_hunter,30,2026-06-06T16:24:13,search_keyword,shopping,拼单,请在搜索框输入“拼单”，点击第一个自然/推荐结果，等待 3 秒后截图。,results\xianyu\bargain_hunter\20260606_160654\screenshots\step_030.png,,0,0,0,0,0,0,1
