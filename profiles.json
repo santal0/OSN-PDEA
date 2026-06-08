@@ -1,7 +1,7 @@
 {
   "profiles": {
     "high_payment_shopping": {
-      "description": "高付费意向/数码发烧友画像。频繁进入核心决策与高客单价结算页，是‘预设分期、默认加购保险、诱导办大额会员’的主要受害者。",
+      "description": "高付费意向用户画像。频繁进入高客单价以及结算页。",
       "behavior": {
         "visit_homepage": 0.05,
         "search_keyword": 0.25,
@@ -16,7 +16,7 @@
       }
     },
     "low_payment_browsing": {
-      "description": "低付费/闲逛消磨时间画像。偏向首页和信息流的日常浏览，极少点击购买，主要测试信息流中的‘伪装广告、低价诱导点击’等暗黑模式。",
+      "description": "低付费/闲逛消磨时间画像。偏向首页和信息流的日常浏览，极少点击购买。",
       "behavior": {
         "visit_homepage": 0.15,
         "search_keyword": 0.15,
@@ -31,7 +31,7 @@
       }
     },
     "bargain_hunter": {
-      "description": "促销敏感/薅羊毛画像。高频流连于各种低价会场，极易触发‘摇红包弹窗反复打断、砍一刀交互摩擦、默认勾选先用后付’等暗黑模式。",
+      "description": "促销敏感/薅羊毛画像。高频流连于各种低价会场。",
       "behavior": {
         "visit_homepage": 0.1,
         "search_keyword": 0.35,
