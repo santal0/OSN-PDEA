@@ -709,9 +709,9 @@ def plot_dimension_tests(dim_df: pd.DataFrame, output_dir: Path) -> None:
             cmap="Blues",
             linewidths=1,
             linecolor="white",
-            cbar_kws={"label": "-lg(FDR q-value)"},
+            cbar_kws={"label": "-log10(BH FDR q-value)"},
         )
-        plt.title(f"Mann-Whitney U FDR q-values - {scope}", fontsize=18, fontweight="bold")
+        plt.title(f"Mann-Whitney U BH FDR q-values - {scope}", fontsize=18, fontweight="bold")
         plt.xlabel("DPS dimension", fontsize=14, fontweight="bold")
         plt.ylabel("Profile comparison", fontsize=14, fontweight="bold")
         plt.tight_layout()

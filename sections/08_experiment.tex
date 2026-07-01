@@ -1,0 +1,89 @@
+\chapter{Experimental Design}
+\label{sec:experimental-design}
+
+This section describes the experimental design used to audit whether controlled user profiles receive different levels or types of dark pattern exposure in mobile applications. The purpose of the experiment is not to fully reproduce the complete diversity of real-world mobile app usage, but to create a controlled and reproducible setting in which profile-conditioned exposure can be compared across applications. Following the logic of black-box platform auditing, the experiment treats each mobile application as an externally observable system: the internal ranking, recommendation, promotion, and interface-generation mechanisms are not directly inspected, but their visible outputs are recorded through repeated profile-conditioned interactions \cite{sandvig2014auditing,hannak2013personalization,srba2023youtube}.
+
+\section{Application Selection}
+\label{subsec:application-selection}
+
+The experiment audits sixteen mobile applications selected from common user-facing service categories, including e-commerce, food delivery, lifestyle services, content platforms, and local services. These categories were chosen because they contain frequent decision points and commercial interaction opportunities. In such applications, users are often asked to search, browse, select, compare, register, subscribe, join membership programs, accept promotional offers, enter payment flows, or respond to pop-ups. These interaction contexts are especially relevant for studying deceptive or manipulative interface mechanisms because dark patterns often appear at moments where user decisions have commercial or privacy-related consequences \cite{gray2018darkpatterns,mathur2019darkpatterns}.
+
+The selected categories also contain a mixture of recommendation flows and transactional interfaces. E-commerce and food-delivery applications frequently use coupons, limited-time promotions, membership discounts, bundled offers, and checkout-related prompts. Lifestyle and local-service applications often include login prompts, location requests, membership registration, service booking flows, and payment-related interfaces. Content platforms may rely more heavily on recommendation feeds, attention retention mechanisms, nagging prompts, and repeated requests for account binding or notification permissions. Together, these categories provide a practical testbed for examining whether different profiles encounter different forms of interface interference, pressure, forced action, or other DPS dimensions.
+
+The application set should therefore be understood as a controlled sample rather than a statistically representative sample of all mobile applications. The goal is to cover several high-frequency app categories in which decision architecture is visible and repeatedly encountered. This design allows the project to compare exposure patterns across profile types while still keeping the experiment feasible for a course-scale audit.
+
+\section{Profile Setup}
+\label{subsec:profile-setup}
+
+The experiment uses three controlled profiles: a high-payment shopping profile, a low-payment browsing profile, and a bargain-hunter profile. These profiles are not intended to represent demographic groups or real individuals. Instead, they are experimental instruments designed to introduce controlled differences in interests and interaction behavior. This distinction is important because the project focuses on profile-conditioned exposure while avoiding direct demographic attributes such as age, gender, income, or identity categories. The profile design follows the broader idea in user modeling that users may be represented through interests and behaviors, but it operationalizes these components in a simplified and reproducible way \cite{eke2019userprofiling,purificato2024usermodeling}.
+
+The high-payment shopping profile is used to simulate a user who frequently searches for or browses higher-value goods and is more willing to enter decision-related interfaces such as product detail pages, membership prompts, or checkout flows. The low-payment browsing profile is used to simulate a more casual user who spends more time browsing or scrolling and less time entering payment-related contexts. The bargain-hunter profile is used to simulate a user who is sensitive to promotions, discounts, coupons, flash sales, and reward mechanisms. In the actual audit process, the differences among these profiles are introduced through profile-specific behavior probabilities and keyword pools. For example, when a search action is sampled, the keyword is drawn from the corresponding profile's keyword distribution. When a browsing or decision-interface action is sampled, the instruction reflects the behavioral tendency of that profile.
+
+This setup allows the experiment to ask whether interface exposure differs when the same applications are approached through different controlled behavioral patterns. The profiles should not be interpreted as complete psychological models of users. Rather, they serve as reproducible experimental conditions for comparing dark pattern exposure under different interest-behavior assumptions.
+
+\section{Interaction Budget and Dataset Scale}
+\label{subsec:interaction-budget}
+
+For each application and each profile, the audit runs for thirty interaction steps. With sixteen applications and three profiles, this produces:
+\[
+16 \ \text{apps} \times 3 \ \text{profiles} \times 30 \ \text{steps} = 1{,}440 \ \text{interaction records}.
+\]
+Each interaction record is annotated using the seven-dimensional DPS vector:
+\[
+DPS = [I, F, P, C, S, N, FA],
+\]
+where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Since each record contains seven DPS labels, the full dataset contains:
+\[
+1{,}440 \times 7 = 10{,}080 \ \text{DPS labels}.
+\]
+
+The choice of thirty steps reflects a balance between feasibility and repeated exposure estimation. A single screenshot would be too fragile because dark pattern exposure may depend on timing, page state, recommendation flow, login status, promotion availability, or the user's previous actions within the app. Repeated interactions provide a more stable basis for estimating profile-conditioned exposure \(E(D \mid A)\). At the same time, the audit remains small enough to be manually executed and annotated within the constraints of a course project. The running mean convergence curves introduced later in the report are used to examine whether exposure estimates gradually stabilize as more interaction steps are collected. In this sense, the fixed interaction budget is not assumed to be perfect; instead, it is treated as an experimental design choice whose stability can be evaluated empirically.
+
+\section{Experimental Controls}
+\label{subsec:experimental-controls}
+
+The experiment uses several controls to reduce unrelated noise and improve comparability across profiles. When possible, new accounts are created for the audit so that prior user histories do not dominate the observed app behavior. Browsing histories, search histories, and other locally stored traces are cleared before the experiment where the application and device environment allow it. The same device configuration is used across profiles, and the same app version is maintained when possible. These controls are important because mobile applications may adapt their interfaces based on device settings, account histories, location permissions, app version, cached behavior, or previous search and browsing activity.
+
+The experiment also keeps the number of interaction steps constant across all app-profile pairs. Each profile receives thirty steps in each application, so exposure differences are not caused by one profile simply interacting more than another. A fixed waiting time is used before screenshots are captured, so that dynamic interface elements have time to load and the screenshot timing is more consistent. The same DPS annotation rules are applied across all records. This helps ensure that a label such as pressure, friction, or forced action is interpreted according to the same criteria regardless of the application or profile.
+
+Most importantly, the intended differences among profiles are introduced only through behavior probabilities and keyword pools. The device, annotation framework, interaction budget, and screenshot procedure are kept as similar as possible. This does not eliminate all possible confounding factors, since mobile applications are dynamic systems and may change over time. However, these controls reduce unrelated variation and make the comparison more focused on the relationship between controlled profile behavior and observed dark pattern exposure.
+
+\section{Random Seed and Sampling Reproducibility}
+\label{subsec:random-seed}
+
+Action and keyword sampling are controlled by the random seed in \texttt{codes/config.json}. In the current implementation, \texttt{random\_seed} is set to \texttt{20260603}, and \texttt{codes/main.py} initializes the sampling generator with this value before the audit loop begins. Under the same profile configuration, keyword pool, app order, and execution sequence, this seed makes the generated sequence of sampled actions and sampled keywords reproducible.
+
+The seed controls the instruction generation stage, not the full mobile-app environment. App interfaces may still vary because of network timing, account state, app updates, server-side recommendation changes, location permissions, or promotional campaigns. For this reason, reproducibility in this project means that the experimental inputs and generated audit instructions can be regenerated, while the observed screen outputs remain subject to the normal variability of black-box mobile applications. To support later inspection, each executed step is saved with its action, keyword, screenshot path, timestamp, DPS labels, and notes.
+
+\section{Audit Procedure}
+\label{subsec:audit-procedure}
+
+The audit procedure is designed as a repeated interaction loop. For each application-profile pair, the system loads the configured profile, samples an action, generates a concrete instruction, records the resulting interface state, annotates the screenshot, and updates the exposure estimate. The procedure is deliberately explicit so that another auditor can reproduce the experimental inputs and check each saved observation against the corresponding screenshot.
+
+For clarity, the procedure can be summarized as follows:
+
+\begin{enumerate}
+    \item Create a new account for the target application when feasible, or clean the existing account, browsing history, search history, cache, and profile traces where the app allows it.
+    \item Load the profile configuration from the profile file, including the behavior probability distribution and keyword pool.
+    \item Sample an action from the profile-conditioned behavior distribution using the configured random seed.
+    \item If the sampled action is search-oriented, sample a keyword from the profile-specific keyword pool.
+    \item Generate an executable natural-language instruction from the sampled action and keyword.
+    \item Execute the instruction manually or semi-automatically in the mobile application.
+    \item Wait for the fixed number of seconds specified in the configuration before collecting evidence.
+    \item Capture a screenshot of the resulting interface state and save it in the run-specific screenshot folder.
+    \item Annotate the screenshot using the seven-dimensional DPS vector \([I,F,P,C,S,N,FA]\).
+    \item Save the step-level record, including \texttt{app\_name}, \texttt{app\_category}, \texttt{profile}, \texttt{step\_id}, \texttt{action}, \texttt{keyword}, \texttt{screenshot\_path}, \texttt{I}, \texttt{F}, \texttt{P}, \texttt{C}, \texttt{S}, \texttt{N}, \texttt{FA}, \texttt{timestamp}, and \texttt{notes}.
+    \item Update the running mean exposure estimate for each DPS dimension using all records collected so far in the current trajectory.
+    \item Repeat the process until thirty steps are completed for the current application-profile pair.
+\end{enumerate}
+
+This step-by-step procedure supports reproducibility because each record can be traced back to a profile, an action, a keyword if applicable, and a screenshot. It also makes the audit trajectory explicit, allowing later analysis to estimate exposure not only from isolated screenshots but from repeated interaction sequences.
+
+\section{Annotation Reliability Considerations}
+\label{subsec:annotation-reliability}
+
+The project relies on manual annotation of screenshots, which is both a strength and a limitation. Manual annotation allows the auditor to interpret interface context, visual hierarchy, button wording, pop-up behavior, and decision flow in ways that simple automated detectors may miss. This is especially useful for dimensions such as Contextual Deception, Friction, and Pressure, where the meaning of an interface element may depend on the surrounding task context. At the same time, manual annotation introduces the possibility of inconsistency, subjectivity, and fatigue. Different annotators may disagree about whether a particular interface counts as pressure, whether a login prompt should be labeled as forced action, or whether a confusing layout rises to the level of interface interference.
+
+To reduce inconsistency, the report defines clear DPS guidelines and applies the same rules across all applications and profiles. Ambiguous cases can be reviewed after initial annotation, and difficult examples can be discussed to refine the interpretation of each DPS dimension. The annotation process should therefore be understood as rule-guided manual coding rather than informal impressionistic judgment. Nevertheless, the current project does not claim to fully solve the reliability problem. Because it is a course-scale audit, it does not include a full multi-annotator reliability study.
+
+Future work should improve this part of the framework by involving multiple annotators and calculating inter-annotator agreement metrics such as Cohen's Kappa. Multiple annotators would make it possible to identify unstable DPS categories, revise unclear annotation rules, and distinguish robust exposure differences from differences caused by coding variation. In a larger study, disagreement analysis could also become a useful methodological tool: if certain interface patterns repeatedly produce annotation disagreement, this may indicate that the boundary between acceptable persuasion and deceptive design is itself ambiguous. For the present project, the annotation design emphasizes transparency, consistency, and reproducible comparison while acknowledging that stronger reliability validation remains an important direction for future work.

@@ -1,0 +1,57 @@
+\chapter{Limitations}
+
+This project provides a profile-aware framework for auditing differential dark-pattern exposure in mobile applications. By combining controlled profile construction, repeated interaction trajectories, DPS annotation, and profile-conditioned exposure estimation, the framework makes it possible to compare how different user profiles are associated with different patterns of deceptive interface exposure. The limits discussed below do not weaken that contribution. They define the scope in which the report makes a defensible claim: it measures observed profile-conditioned exposure, not platform-internal algorithms, developer intent, or a full reconstruction of hidden personalization logic.
+
+\section{Manual Annotation}
+
+The limitation is that DPS labels are assigned manually. Each interaction record is annotated against the seven-dimensional DPS vector, so the final exposure estimates depend on human interpretation of interface context, wording, salience, and action affordances. This matters because some cases are intrinsically borderline: a promotional countdown can be ordinary marketing in one setting and pressure in another, and a misleading-looking interface can be difficult to separate from low-quality design.
+
+This report mitigates the risk by using a fixed taxonomy, written annotation rules, and a profile-controlled audit setting. Those constraints do not remove judgment, but they make the judgment comparable across apps and profiles. In other words, the study is not trying to mechanically detect every deceptive element; it is building a consistent measurement procedure for observed exposure. That is sufficient for the current research goal because the main comparison is between controlled profiles under the same annotation protocol.
+
+Future work should add multiple annotators, measure inter-annotator agreement, and use adjudication to refine ambiguous cases. Automated or semi-automated detectors can then be introduced as a scaling layer, but they should remain tied to the same DPS definitions rather than replacing them. The present report remains effective because it establishes a transparent baseline that makes later automation auditable and comparable.
+
+\section{Fixed Interaction Budget}
+
+The limitation is that every app-profile pair is observed under a fixed 30-step interaction budget. This matters because some exposure mechanisms are cumulative: recommendations, promotions, retention prompts, and permission requests may only appear after longer account histories or repeated engagement.
+
+This report mitigates that limitation by treating 30 steps as a controlled audit window rather than a claim about full-life app usage. The running mean curves show that several exposure estimates stabilize within the available budget, so the fixed-length design still provides a meaningful basis for cross-profile comparison. The key value of the study is comparative measurement under identical conditions, not exhaustive simulation of user lifetime behavior.
+
+Future work should vary trajectory length, use convergence-based stopping rules, or run repeated audits over longer periods. That extension belongs in Chapter 12, but it does not reduce the usefulness of the present results: within the chosen window, the framework can still distinguish profile-conditioned exposure patterns in a reproducible way.
+
+\section{Static Profiles}
+
+The limitation is that profiles are static once the audit starts. Each profile is defined by a fixed keyword distribution and a fixed action distribution, so the framework does not model how interests or behaviors evolve during the session.
+
+This matters because real users are adaptive. Their later actions can differ from their initial intent, and platform responses may in turn alter what they see next. Static profiles therefore simplify a dynamic social and technical process into a controlled initial condition. The limitation is methodological, not conceptual: it means the report studies exposure conditioned on a specified profile, not exposure under a fully evolving user model.
+
+The report mitigates this by making the profile definition explicit and reproducible. Static profiles isolate the effect of controlled starting conditions, which is exactly what is needed to compare observed exposure across groups. That makes the current design effective for the report's objective: it identifies whether the same app presents different observable exposure patterns under different controlled profiles.
+
+Future work should introduce dynamic profile updates so that profiles can respond to accumulated history. Chapter 12 already points to this extension. For the current report, the static design remains valuable because it removes one major source of confounding and keeps the exposure comparison interpretable.
+
+\section{Limited App Scope}
+
+The limitation is that the audit covers 16 mobile applications rather than the full mobile ecosystem. This matters because app categories, regions, business models, and release cycles differ, so no finite sample can justify universal claims about all mobile apps.
+
+This report mitigates that limitation by sampling across multiple categories and by presenting category-level as well as app-level results. That design does not claim representativeness in a statistical-population sense; instead, it provides cross-app evidence that profile-conditioned exposure is observable in a diverse set of real applications. The project is therefore still effective because it demonstrates the phenomenon in more than one setting, rather than relying on a single app or a toy example.
+
+Future work should broaden the sample, repeat audits across time, and record version changes more systematically. Those extensions are discussed in Chapter 12. The present scope is still meaningful because it establishes that the framework works across multiple common app types and can surface differences that are not reducible to one product category.
+
+\section{No Strong Causal Claim}
+
+The limitation is that the framework supports observational inference, not strong causal attribution. The report measures observed profile-conditioned exposure, denoted as $E(D \mid A)$, and compares exposure distributions across profiles. It does not identify the platform's internal ranking policy, personalization rule, or developer intent.
+
+This matters because the same exposure gap can be produced by several mechanisms: profile-driven navigation, history-dependent recommendation, ordinary interface branching, or general design differences that are unrelated to targeted manipulation. A statistically significant difference therefore shows that the profiles do not experience the same observable interface environment, but it does not by itself explain why.
+
+The report mitigates this by using careful language, by pairing exposure estimates with permutation-based validation, and by limiting the interpretation to what is actually observed. That restraint strengthens the paper rather than weakening it: the contribution is a defensible black-box audit of visible outcomes, which is exactly the right level of evidence for the available data.
+
+Future work should use designs that separate direct effects from mediated effects, or otherwise support stronger counterfactual claims. Chapter 12 already outlines that direction. For the current report, the observational framing is still effective because it avoids overclaiming while still showing that profile-conditioned exposure differences are measurable and repeatable.
+
+\section{Manual Persona Design}
+
+The limitation is that personas are designed manually. Keyword pools and action probabilities are chosen by the researchers rather than learned from a large corpus of real user traces.
+
+This matters because manual construction can omit mixed motives, context switching, and population heterogeneity. It may also embed the researcher's assumptions about what counts as a high-payment shopper, a low-payment browser, or a bargain hunter. At the same time, the design is intentional: the study is built to compare controlled experimental profiles, not to infer or reproduce the identities of real users.
+
+The report mitigates this by keeping profiles narrow, explicit, and non-demographic. That choice is part of the method's strength, not merely a compromise. It makes the audit reproducible, reduces privacy risk, and keeps the measurement focused on behavior-conditioned exposure rather than sensitive user classification. In that sense, the project remains effective because the personas function as controlled probes, which is the proper role of personas in this report.
+
+Future work should estimate profile parameters from privacy-preserving behavioral data or use synthetic agents to generate richer persona dynamics. Chapter 12 covers that extension. The current manual design still serves the study well because it provides a transparent baseline for observing how the same apps respond to clearly specified interaction styles.

@@ -1,0 +1,124 @@
+\chapter{Profile Construction}
+
+This section describes how controlled user profiles are constructed for the proposed profile-aware auditing framework. In this project, profiles are not treated as informal persona descriptions, but as reproducible experimental objects that can generate observable interaction trajectories. The goal is to examine whether different profile-conditioned interaction patterns are associated with different levels or types of dark pattern exposure in mobile applications.
+
+\section{Design Principles}
+
+The construction of user profiles follows five design principles: controllability, reproducibility, behavioral plausibility, ethical safety, and comparability. These principles are important because the objective of the project is not to infer the true psychological state of real users, but to build controlled profile conditions for auditing mobile applications.
+
+First, profiles should be controllable. A profile must be defined by explicit parameters that can be changed, fixed, or compared across experimental runs. For this reason, the project avoids vague descriptions such as ``a shopping user'' or ``a casual user'' unless they are translated into operational variables. In the framework, a profile is defined through interest distributions and behavior distributions. These distributions determine what keywords are searched and what types of actions are more likely to be performed during exploration. This makes the profile an experimental input rather than a loose narrative label.
+
+Second, profiles should be reproducible. If the same profile is used again under the same experimental configuration, it should produce a similar tendency of interactions, even though individual actions may be sampled probabilistically. Reproducibility is necessary because the audit compares exposure across profiles. If profile behavior were not formally specified, it would be difficult to determine whether observed differences came from the application interface or from inconsistent manual exploration. This principle is consistent with controlled audit methods in which external researchers study black-box platforms through predefined experimental conditions \cite{sandvig2014auditing,hannak2013personalization}.
+
+Third, profiles should be behaviorally plausible. Although the profiles are simplified, they should correspond to recognizable patterns of mobile app use. For example, a high-payment shopping profile should search for high-value goods and enter purchase-related interfaces more frequently than a low-payment browsing profile. A bargain hunter profile should search for discounts, coupons, and flash sales more frequently than the other profiles. The profiles are not intended to perfectly represent real users, but they should be plausible enough to trigger meaningful application responses.
+
+Fourth, profiles should be ethically safe. The project avoids sensitive demographic attributes, such as gender, age, income, ethnicity, or health condition. Instead, it uses interests and behaviors because they are easier to control and less ethically risky in a course-scale audit. This design reduces privacy concerns and avoids constructing profiles that could be interpreted as targeting protected or sensitive groups.
+
+Finally, profiles should be comparable. Since the purpose of the project is to estimate profile-conditioned dark pattern exposure, each profile should be defined using the same formal structure. The profiles differ in probability values and keyword pools, but they share the same modeling framework. This allows exposure estimates such as \(E(D \mid A)\) and pairwise differences such as \(\Delta(A_i,A_j)\) to be interpreted as comparisons between controlled profile conditions.
+
+\section{Formal Definition of User Profiles}
+
+Let \(A_k\) denote the \(k\)-th controlled user profile. In this project, a profile is formally defined as
+
+\[
+A_k = (C_k, B_k),
+\]
+
+where \(C_k\) is the interest component and \(B_k\) is the behavior component. The interest component describes what content, products, or topics the profile tends to search for. The behavior component describes how the profile tends to interact with the mobile application.
+
+The behavior component is represented as a probability distribution over a predefined action set. Let \(a_t\) denote the action performed at interaction step \(t\). The behavior distribution of profile \(A\) is defined as
+
+\[
+\pi_A(a) = P(a_t = a \mid A),
+\]
+
+where \(a\) is an action from the action space, such as visiting the homepage, searching a keyword, browsing or scrolling, clicking a recommended item, opening a payment page, closing a popup, or going back. The distribution \(\pi_A(a)\) specifies how likely a profile is to perform each action at a given step.
+
+At the conceptual level, these behaviors are still interpreted through the four categories defined in Chapter~\ref{sec:conceptual-framework}: home, search, browse, and decision. If the implementation uses finer-grained operational actions, those actions are collapsed back into the four conceptual categories before profile-level comparison and exposure analysis.
+
+The interest component is represented as a probability distribution over keywords. Let \(w_t\) denote the keyword selected at step \(t\), when the current action is keyword search. The interest distribution is defined as
+
+\[
+\rho_A(w) = P(w_t = w \mid A, a_t = \text{search}),
+\]
+
+where \(w\) is a keyword or keyword category in the profile-specific keyword pool. The condition \(a_t = \text{search}\) indicates that keyword sampling only occurs when the sampled action is a search action. In other words, \(\pi_A(a)\) determines whether the profile searches, while \(\rho_A(w)\) determines what the profile searches for.
+
+This separation between behavior and interest is useful because two profiles may share similar action frequencies but differ in search intent, or they may share some keywords but differ in how often they enter decision-related interfaces. For example, a high-payment profile and a bargain hunter profile may both interact with shopping interfaces, but the former emphasizes high-value products while the latter emphasizes promotions and discounts. By separating \(C_k\) and \(B_k\), the framework can represent such differences more clearly.
+
+\section{Interest Modeling}
+
+User interests are not directly observable in mobile applications. A researcher cannot directly observe what a user truly wants, values, or intends to purchase. However, interests can be approximated through observable signals such as search keywords, clicked items, browsed categories, and repeated interactions. User modeling and recommendation research commonly represents latent user interests through observable behavioral traces or probabilistic topic representations \cite{blei2003lda,piao2018interests,zhou2018din}.
+
+In this project, interests are modeled as probability distributions over keyword categories. This design is intentionally simple. Instead of learning user interests from large-scale historical data, the project manually defines keyword pools for each profile. The purpose is not to build a complete recommender-system user model, but to create controlled and reproducible audit conditions.
+
+Search keywords are important because they may influence many downstream interfaces in mobile applications. A search for high-value electronics may lead to premium product pages, installment payment options, membership prompts, or warranty-related recommendations. A search for daily necessities may lead to ordinary browsing results and fewer high-pressure purchase prompts. A search for coupons or flash sales may lead to countdowns, scarcity messages, limited-time offers, or membership reward pages. Therefore, even when the application is treated as a black box, keyword choice provides a practical way to condition the interaction trajectory.
+
+The three profiles use different keyword tendencies. The high-payment shopping profile emphasizes keyword categories such as high-value electronics, premium goods, branded products, and relatively expensive shopping items. The low-payment browsing profile emphasizes daily necessities, casual browsing keywords, ordinary products, snacks, home supplies, and other lower-intent search terms. The bargain hunter profile emphasizes discounts, coupons, flash sales, group-buy offers, membership rewards, and other promotion-sensitive keywords.
+
+These keyword categories are not intended to exhaust all possible user interests. Rather, they provide controlled signals that can be repeatedly used across applications. They also make the audit easier to inspect: when a profile receives stronger pressure-related exposure, the researcher can examine whether such exposure appears after high-value searches, promotion-related searches, or decision-interface visits.
+
+\section{Behavior Modeling}
+
+The behavior component models how a profile interacts with mobile applications. In real systems, user behavior is complex, sequential, and context-dependent. A real user may change intention after seeing a product, abandon a page because of price, or return to the homepage after encountering a popup. However, fully modeling real user behavior is beyond the scope of this course project. Instead, the framework simplifies behavior as a probability distribution over actions.
+
+This simplification follows the logic of probabilistic user interaction models, where user actions such as clicks, browsing, and transitions can be represented as stochastic events \cite{chapelle2009clickmodel}. The purpose is not to claim that users behave according to fixed probabilities in reality. Rather, the purpose is to create controlled behavioral tendencies that can be reproduced across profiles and applications.
+
+The action space includes common mobile app operations, such as homepage visit, keyword search, browsing or scrolling, clicking a recommended item, opening a decision interface, opening a payment or membership page, closing a popup, and going back. These actions cover both low-intent exploration and high-intent decision paths. In particular, decision-interface actions are important because many dark patterns appear near moments of user decision, such as checkout pages, membership subscription pages, coupon redemption pages, or confirmation dialogs. In the implementation, these operations may be represented by more specific action names, but the analysis still collapses them into the four conceptual categories above.
+
+Table~\ref{tab:profile-behavior-probabilities} summarizes the behavior probability examples used by the three profiles. These probabilities are manually assigned according to profile assumptions. They should be interpreted as controlled experimental settings rather than empirical estimates of real-world user populations.
+
+\begin{table}[htbp]
+\centering
+\caption{Example behavior probability distributions for controlled profiles.}
+\label{tab:profile-behavior-probabilities}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Profile} & \textbf{Homepage Visit} & \textbf{Search Keyword} & \textbf{Browse/Scroll} & \textbf{Decision Interface Visit} \\
+\midrule
+High-payment shopping & 0.05 & 0.25 & 0.40 & 0.30 \\
+Low-payment browsing & 0.15 & 0.15 & 0.60 & 0.10 \\
+Bargain hunter & 0.10 & 0.35 & 0.35 & 0.20 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The behavior distribution makes the profiles comparable. All profiles are defined over the same abstract action categories, but the probability mass is assigned differently. Therefore, if exposure differs across profiles, the difference can be analyzed in relation to controlled differences in search frequency, browsing frequency, and decision-interface frequency.
+
+\section{High-payment Shopping Profile}
+
+The high-payment shopping profile represents a user condition with stronger commercial intent. This profile frequently searches for high-value goods, browses product details, and enters purchase-related, checkout-related, membership-related, or decision-related interfaces. Its example behavior distribution assigns probability \(0.05\) to homepage visit, \(0.25\) to keyword search, \(0.40\) to browsing or scrolling, and \(0.30\) to decision interface visit.
+
+This profile is designed to test whether mobile applications expose commercially active users to stronger dark pattern mechanisms. Since the profile more often approaches decision points, it may encounter more prompts related to purchase completion, membership enrollment, limited-time discounts, warranty add-ons, or payment confirmation. Such contexts may be associated with interface interference, pressure, sneaking, or forced action. For example, the application may highlight one payment option more strongly than another, make the refusal path less visible, insert additional add-on services, or require the user to pass through membership prompts before continuing.
+
+It is important not to overclaim that the profile causes these dark patterns to appear. The audit only observes whether this controlled interaction pattern is associated with a higher level of exposure. If the high-payment profile receives stronger DPS values in certain dimensions, the result suggests that commercially intensive trajectories may be more exposed to manipulative decision interfaces. The interpretation remains observational because the internal personalization mechanisms of the applications are not directly accessible.
+
+\section{Low-payment Browsing Profile}
+
+The low-payment browsing profile represents a user condition with weak purchasing intent. This profile mainly browses and scrolls, performs fewer decision-related actions, and rarely enters payment or membership interfaces. Its example behavior distribution assigns probability \(0.15\) to homepage visit, \(0.15\) to keyword search, \(0.60\) to browsing or scrolling, and \(0.10\) to decision interface visit.
+
+This profile is useful as a baseline because it captures a relatively low-intent mode of app interaction. Many users open mobile applications without a clear purchase goal. They may browse feeds, inspect ordinary content, compare products casually, or leave before reaching checkout. By assigning more probability to browsing and less probability to decision-interface visits, the profile provides a contrast against more commercially intensive profiles.
+
+The baseline role of this profile does not imply that it should receive no dark pattern exposure. Dark patterns may still appear on homepages, recommendation feeds, login prompts, popups, or content pages. However, compared with profiles that frequently search for high-value goods or promotion-related offers, the low-payment browsing profile is expected to encounter fewer decision-stage prompts. Therefore, differences between this profile and the other two profiles help distinguish general app-level exposure from exposure associated with stronger commercial or promotional intent.
+
+\section{Bargain Hunter Profile}
+
+The bargain hunter profile represents a discount-sensitive user condition. This profile frequently searches for discounts, coupons, flash sales, group-buy offers, membership rewards, and other promotion-related opportunities. Its example behavior distribution assigns probability \(0.10\) to homepage visit, \(0.35\) to keyword search, \(0.35\) to browsing or scrolling, and \(0.20\) to decision interface visit.
+
+This profile is designed to examine whether promotion-oriented trajectories are associated with stronger pressure-related exposure. Discount-sensitive interactions may lead users to pages that emphasize urgency, scarcity, or conditional benefits. For example, applications may display countdown timers, limited-stock messages, social proof, membership-only prices, reward expiration notices, or bundled offers. These interface elements are not necessarily dark patterns in every context, but they may become problematic when they pressure users, obscure alternatives, or make refusal unnecessarily difficult.
+
+Compared with the high-payment profile, the bargain hunter profile has a stronger search tendency but a lower decision-interface probability. This reflects a user who actively looks for promotional opportunities but may still compare options before making a decision. Compared with the low-payment browsing profile, it is more commercially directed and more likely to interact with promotional mechanisms. Therefore, it provides a useful middle condition between casual browsing and high-intent purchasing.
+
+If this profile shows higher exposure in pressure, interface interference, or contextual deception, the finding would suggest that promotional search behavior may be associated with more manipulative or attention-capturing interface designs. However, as with the other profiles, the result should be interpreted as profile-conditioned association rather than proof of causal targeting.
+
+\section{Excluding Demographic Attributes}
+
+The framework intentionally excludes demographic attributes from profile construction. Although user profiling research often discusses attributes such as age, gender, location, income, or other personal characteristics, these attributes are not used in this project. The decision is motivated by reproducibility, controllability, privacy, and ethical concerns.
+
+From a reproducibility perspective, demographic attributes are difficult to operationalize consistently in a course-scale audit. Many mobile applications may not explicitly request demographic information, while others may infer it through opaque mechanisms. If the audit included demographic attributes, it would be unclear whether the application actually received, inferred, or used those attributes. This would make profile construction less reliable.
+
+From a controllability perspective, interests and behaviors are easier to manipulate experimentally. A researcher can control which keywords are searched, which pages are opened, and how frequently decision interfaces are visited. In contrast, demographic attributes are often either unavailable, unverifiable, or entangled with account history and platform inference. Using them would introduce additional uncertainty into the experiment.
+
+From a privacy and ethics perspective, excluding demographic attributes reduces the risk of constructing sensitive or potentially discriminatory user categories. The project aims to audit differential exposure without simulating protected groups or making claims about real demographic populations. This is especially important because dark pattern exposure may relate to vulnerability, manipulation, and unequal treatment. A course-scale project should avoid unnecessary collection or simulation of sensitive identity attributes.
+
+Using interests and behaviors is sufficient for the objective of this audit. The project does not attempt to determine whether platforms discriminate against demographic groups. Instead, it asks a narrower and more controllable question: whether different interest-behavior profiles encounter different dark pattern exposure during mobile app interaction. This design keeps the audit experimentally manageable, ethically safer, and more reproducible while still addressing the central concern of profile-dependent exposure.

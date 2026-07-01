@@ -1,0 +1,106 @@
+\documentclass[math]{amznotes}
+
+\usepackage{lipsum}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{hyperref}
+
+\captionsetup{
+    font=small,
+    skip=4pt,
+    labelfont=bf
+}
+
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.75}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\textfraction}{0.12}
+\renewcommand{\floatpagefraction}{0.75}
+
+\setlength{\parindent}{2em}
+\begin{document}
+
+% ==================== Cover ====================
+
+\begin{titlepage}
+    \centering
+    \vspace*{1.6cm}
+
+    {\scshape\LARGE Zhejiang University \par}
+    \vspace{0.7cm}
+    {\scshape\Large Security And Privacy In Online Social Network / CS3174M \par}
+    \vspace{1.0cm}
+
+    \rule{\linewidth}{0.8pt}
+    \vspace{0.45cm}
+
+    {\LARGE \bfseries
+    \parbox{0.92\linewidth}{
+        \centering
+        Profile-Aware Auditing of Dark Pattern Exposure in Mobile Applications:\\
+        Measuring Differential Exposure Across User Profiles
+    }
+    \par}
+
+    \vspace{0.45cm}
+    \rule{\linewidth}{0.8pt}
+
+    \vspace{1.2cm}
+
+    {\Large Kai Zhang$^{*}$, Zhuming Ren$^{*}$, Wenyao Li$^{*}$ \par}
+    \vspace{0.25cm}
+    {\Large Zhihe Hu \par}
+    \vspace{0.25cm}
+    {\Large Huanjun Jin \par}
+
+    \vspace{0.8cm}
+
+    {\large $^{*}$ contributed equally as co-first authors. \par}
+
+    \vfill
+
+    {\large \today\par}
+
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+% =========================================================
+\input{sections/00_abstract.tex}
+\input{sections/01_intro.tex}
+\input{sections/02_relate.tex}
+\input{sections/03_framework.tex}
+\input{sections/04_profile.tex}
+\input{sections/05_DPS.tex}
+\input{sections/06_differential.tex}
+\input{sections/07_implement.tex}
+\input{sections/08_experiment.tex}
+\input{sections/09_results.tex}
+\input{sections/10_discussion.tex}
+\input{sections/11_limitation.tex}
+\input{sections/12_future.tex}
+\input{sections/13_ethical.tex}
+\input{sections/14_conclusion.tex}
+\input{sections/appendix.tex}
+
+
+\FloatBarrier
+
+% =========================================================
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{refs}
+
+\end{document}
