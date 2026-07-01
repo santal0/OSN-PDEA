@@ -22,6 +22,13 @@ This framing changes the research question. Instead of asking only whether a dar
 
 The distributional view also explains why \(\Delta(A_i,A_j)\), \(L_1\) distance, and permutation tests are useful. Pairwise differences identify which DPS dimensions separate two profiles. The \(L_1\) distance summarizes the magnitude of the vector-level gap. Permutation tests ask whether the observed gap is larger than would be expected after random profile-label reassignment. Together, these measures shift dark pattern auditing from static detection toward profile-conditioned exposure analysis, while still keeping the evidence tied to observable interface states.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/why_exposure_differs_across_profiles.png}
+    \caption{Why Exposure Differs Across Profiles}
+    \label{fig:why_exposure_differs_across_profiles}
+\end{figure}
+
 \section{Implications for Platform Accountability}
 
 The distributional nature of dark pattern exposure has implications for platform accountability, but the implication is primarily methodological. Platforms should be evaluated not only by whether a dark pattern can be found, but by how DPS exposure is distributed across profile-conditioned trajectories. The relevant audit object is the exposure distribution \(E(D \mid A)\), together with profile gaps such as \(\Delta(A_i,A_j)\), rather than a single screenshot or a single default journey.

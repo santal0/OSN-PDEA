@@ -11,3 +11,10 @@ main.aux
 reference.md
 
 /build
+main.bbl
+.gitignore
+main.out
+main.blg
+main.toc
+.gitignore
+main.xdv

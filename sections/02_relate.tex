@@ -48,6 +48,14 @@ Behaviors are modeled as probability distributions over interaction actions. Thi
 
 The exclusion of demographic attributes is a deliberate design choice. Demographic features are difficult to control reliably in black-box app audits, especially when platforms may infer them through indirect signals rather than explicit profile fields. They may also raise ethical concerns, particularly if the audit creates or manipulates sensitive identities. By focusing on interests and behaviors, this project studies differential exposure through controllable and reproducible profile dimensions. This choice does not imply that demographic differences are unimportant. Rather, it reflects a course-project scope and an ethical preference for avoiding sensitive attributes while still examining profile-conditioned exposure.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/research_gap_map.png}
+    \caption{Research Gap Map.}
+    \label{fig:research_gap_map}
+\end{figure}
+
+
 \section{Research Gap}
 
 The literature reviewed above suggests three important conclusions. First, dark pattern research has developed rich taxonomies and measurement methods for identifying deceptive interfaces \cite{gray2018darkpatterns,mathur2019darkpatterns,mathur2021whatmakesdark,nouwens2020gdpr}. These works show that dark patterns are systematic, classifiable, and empirically measurable. Second, algorithm auditing research has demonstrated that digital platforms can produce different outputs for different controlled profiles, especially in personalized search, recommendation, advertising, and content-ranking environments \cite{sandvig2014auditing,hannak2013personalization,ribeiro2020auditing}. Third, user modeling research provides practical abstractions for constructing profiles through interests and behaviors, which can be adapted for controlled audit experiments \cite{eke2019userprofiling,purificato2024usermodeling}.

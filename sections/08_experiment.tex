@@ -12,6 +12,13 @@ The selected categories also contain a mixture of recommendation flows and trans
 
 The application set should therefore be understood as a controlled sample rather than a statistically representative sample of all mobile applications. The goal is to cover several high-frequency app categories in which decision architecture is visible and repeatedly encountered. This design allows the project to compare exposure patterns across profile types while still keeping the experiment feasible for a course-scale audit.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/experimental_scale_matrix.png}
+    \caption{Experimental Scale Matrix}
+    \label{fig:experimental-scale-matrix}
+\end{figure}
+
 \section{Profile Setup}
 \label{subsec:profile-setup}
 
@@ -38,6 +45,13 @@ where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denote
 \]
 
 The choice of thirty steps reflects a balance between feasibility and repeated exposure estimation. A single screenshot would be too fragile because dark pattern exposure may depend on timing, page state, recommendation flow, login status, promotion availability, or the user's previous actions within the app. Repeated interactions provide a more stable basis for estimating profile-conditioned exposure \(E(D \mid A)\). At the same time, the audit remains small enough to be manually executed and annotated within the constraints of a course project. The running mean convergence curves introduced later in the report are used to examine whether exposure estimates gradually stabilize as more interaction steps are collected. In this sense, the fixed interaction budget is not assumed to be perfect; instead, it is treated as an experimental design choice whose stability can be evaluated empirically.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/controlled_audit_procedure.png}
+    \caption{Controlled Audit Procedure}
+    \label{fig:controlled-audit-procedure}
+\end{figure}
 
 \section{Experimental Controls}
 \label{subsec:experimental-controls}

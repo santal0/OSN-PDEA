@@ -1,6 +1,14 @@
 \chapter{Conceptual Framework}
 \label{sec:conceptual-framework}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/presence_vs_exposure.png}
+    \caption{Presence vs. Exposure}
+    \label{fig:presence_vs_exposure}
+\end{figure}
+
+
 \section{Interface Presence vs. User Exposure}
 \label{subsec:presence-exposure}
 
@@ -26,7 +34,22 @@ To analyze exposure rather than mere presence, this project models mobile app us
 
 Here, $\mathcal{A}$ denotes the set of possible interaction actions used in the conceptual framework. The action $\mathrm{home}$ represents homepage visits or returning to the main interface, $\mathrm{search}$ represents keyword-based search, $\mathrm{browse}$ represents scrolling or opening ordinary content, and $\mathrm{decision}$ represents entering decision-related interfaces such as checkout, subscription, ordering, or confirmation pages. This four-category abstraction is the conceptual action space used throughout the analysis.
 
-The implementation layer may instantiate these categories with a finer-grained action set, such as \texttt{visit\_homepage}, \texttt{search\_keyword}, \texttt{browse\_or\_scroll\_page}, \texttt{click\_recommended\_item}, \texttt{like\_or\_favorite}, \texttt{follow\_account}, \texttt{stay\_on\_content}, \texttt{decision\_interface\_visit}, \texttt{close\_popup}, and \texttt{back}. These implementation-level actions are mapped back to the four conceptual categories before exposure analysis, so the mathematical definitions below remain unchanged while the operational traces can stay more detailed.
+The implementation layer may instantiate these categories with a finer-grained action set, such as:
+
+\begin{itemize}
+    \item \texttt{visit\_homepage}
+    \item \texttt{search\_keyword}
+    \item \texttt{browse\_or\_scroll\_page}
+    \item \texttt{click\_recommended\_item}
+    \item \texttt{like\_or\_favorite}
+    \item \texttt{follow\_account}
+    \item \texttt{stay\_on\_content}
+    \item \texttt{decision\_interface\_visit}
+    \item \texttt{close\_popup}
+    \item \texttt{back}
+\end{itemize}
+
+These implementation-level actions are mapped back to the four conceptual categories before exposure analysis, so the mathematical definitions below remain unchanged while the operational traces can stay more detailed.
 
 Each controlled user profile is represented by two components:
 
@@ -127,6 +150,13 @@ d_t
 \end{equation}
 
 where $I_t$ denotes Interface Interference, $F_t$ denotes Friction, $P_t$ denotes Pressure, $C_t$ denotes Contextual Deception, $S_t$ denotes Sneaking, $N_t$ denotes Nagging, and $FA_t$ denotes Forced Action at step $t$. This trajectory-based view is important because dark pattern exposure is often sequential. Friction may appear only when the user attempts to reject or cancel an option. Pressure may appear after the user enters a shopping or payment context. Forced action may appear when the user cannot proceed without logging in, granting permission, or accepting a membership prompt. A single static screenshot may miss these mechanisms, while an interaction trajectory can capture how exposure accumulates across repeated app usage.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/core_conceptual_framework.png}
+    \caption{Core Conceptual Framework}
+    \label{fig:core_conceptual_framework}
+\end{figure}
 
 \section{Profile-conditioned Exposure}
 \label{subsec:profile-conditioned-exposure}

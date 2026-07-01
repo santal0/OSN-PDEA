@@ -10,6 +10,13 @@ This report mitigates the risk by using a fixed taxonomy, written annotation rul
 
 Future work should add multiple annotators, measure inter-annotator agreement, and use adjudication to refine ambiguous cases. Automated or semi-automated detectors can then be introduced as a scaling layer, but they should remain tied to the same DPS definitions rather than replacing them. The present report remains effective because it establishes a transparent baseline that makes later automation auditable and comparable.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/limitations_map.png}
+    \caption{Limitations Map}
+    \label{fig:limitations_map}
+\end{figure}
+
 \section{Fixed Interaction Budget}
 
 The limitation is that every app-profile pair is observed under a fixed 30-step interaction budget. This matters because some exposure mechanisms are cumulative: recommendations, promotions, retention prompts, and permission requests may only appear after longer account histories or repeated engagement.

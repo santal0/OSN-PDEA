@@ -10,6 +10,13 @@ The DPS framework is designed to address this need. Instead of reproducing every
 
 This compact representation is also necessary because the project studies exposure as a distributional outcome. Each screenshot is treated as one observation generated under a particular app, profile, and interaction step. To compare exposure across profiles, the project needs a consistent vector representation that can be averaged, compared, and statistically tested. The DPS vector therefore provides the basis for estimating profile-conditioned exposure, computing pairwise exposure differences, drawing heatmaps, plotting running mean convergence curves, and conducting permutation-based validation.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/seven-dimensional_DPS_vector.png}
+    \caption{Seven-Dimensional DPS Vector}
+    \label{fig:seven-dimensional-dps-vector}
+\end{figure}
+
 \section{DPS Vector Definition}
 
 The project represents dark pattern exposure using a seven-dimensional vector called DPS, defined as follows:
@@ -20,7 +27,13 @@ The project represents dark pattern exposure using a seven-dimensional vector ca
 
 where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Each screenshot collected during the interaction trajectory is converted into one DPS vector. The vector records whether the screen contains observable evidence of each dimension.
 
-This vector-based representation has three advantages. First, it allows different dark pattern mechanisms to co-exist in the same screenshot. A screen may contain both pressure and interface interference, or both forced action and nagging. Second, it avoids forcing annotators to choose a single dominant category when multiple mechanisms are present. Third, it supports quantitative comparison across profiles. Once every screenshot is represented as a vector, exposure can be aggregated by app, profile, step, or DPS dimension.
+This vector-based representation has three advantages.
+
+\begin{itemize}
+    \item It allows different dark pattern mechanisms to co-exist in the same screenshot. A screen may contain both pressure and interface interference, or both forced action and nagging.
+    \item It avoids forcing annotators to choose a single dominant category when multiple mechanisms are present.
+    \item It supports quantitative comparison across profiles. Once every screenshot is represented as a vector, exposure can be aggregated by app, profile, step, or DPS dimension.
+\end{itemize}
 
 In the current implementation, each dimension is annotated as a binary label. For a given screenshot, the value of a dimension is 1 if the corresponding mechanism is present and 0 if it is absent. For example, a screenshot with a countdown timer and a visually emphasized purchase button might be annotated as having pressure and interface interference. A screenshot that requires the user to log in before browsing may be annotated as forced action. The following subsections define each DPS dimension and provide practical annotation guidance.
 
@@ -99,6 +112,13 @@ which indicates that Interface Interference and Pressure are present, while Fric
 The binary scale is chosen for consistency and feasibility. Since the experiment involves 16 apps, 3 profiles, and 30 interaction steps per profile-app pair, the annotation workload is already substantial. A binary scheme reduces ambiguity and allows annotators to focus on whether a mechanism is observable. It also supports straightforward aggregation. For each profile \(A\), the project can estimate the expected exposure \(E(D \mid A)\) by averaging DPS labels across records. Pairwise differences between profiles can then be computed as \(\Delta(A_i, A_j)\), and statistical validation can be conducted using permutation tests, q-values, L1 distance, and Cramér's V.
 
 Future work could extend the binary scale to ordinal scores such as 0, 1, and 2, where 0 indicates absence, 1 indicates weak or moderate presence, and 2 indicates strong presence. Such an extension would allow more nuanced measurement of severity. For example, a small countdown label and a full-screen urgent warning might both be labeled as Pressure under the binary scale, while an ordinal scale could distinguish their intensity. However, ordinal scoring also requires stronger annotation guidelines and reliability checks. For the present course project, the binary scale provides a practical balance between expressiveness and consistency.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/from_screenshot_to_DPS_label.png}
+    \caption{From Screenshot to DPS Label}
+    \label{fig:from-screenshot-to-dps-label}
+\end{figure}
 
 \section{Annotation Examples}
 

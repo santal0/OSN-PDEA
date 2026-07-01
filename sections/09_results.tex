@@ -1,6 +1,14 @@
 \chapter{Results}
 \label{chap:results}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/results_dashboard_overview.png}
+    \caption{Dashboard Overview}
+    \label{fig:dashboard_overview}
+\end{figure}
+
+
 \section{Overview of Results}
 
 This section reports the empirical results of the profile-aware dark pattern auditing experiment. The repository contains 1,403 interaction records from 16 mobile applications and three controlled user profiles. The protocol was designed around 30 interaction steps for each app-profile pair; in the archived results, the observed trajectory length ranges from 20 to 30 steps because a small number of runs ended before the planned length. Since each interaction record was annotated with the seven-dimensional DPS vector, the resulting dataset contains 9,821 dimension-level DPS labels. These labels provide the basis for estimating profile-conditioned dark pattern exposure, comparing exposure differences across profiles, and examining whether observed differences are likely to reflect systematic profile-dependent variation rather than random fluctuation.
@@ -31,6 +39,7 @@ The main empirical pattern is that commercially oriented profiles, especially th
 
 \paragraph{Result.}
 The three controlled profiles show different DPS exposure patterns. At the aggregate level, the high-payment shopping profile has the highest mean DPS exposure, followed by the bargain-hunter profile and the low-payment browsing profile. The difference is not uniform across dimensions: the largest profile-level changes appear in Interface Interference, Pressure, and Forced Action, while Contextual Deception and Sneaking remain comparatively low in the overall dataset.
+However, simply looking at the overall averages is not sufficiently distinctive on its own. The profile gap becomes much clearer when the analysis is broken down by application category, especially in social and food-delivery applications.
 
 \begin{table}[htbp]
     \centering
@@ -58,8 +67,60 @@ Table~\ref{tab:profile-mean-dps} reports the mean DPS values computed from the a
     \label{fig:mean-exposure-all}
 \end{figure}
 
+\paragraph{Food-delivery evidence.}
+The category-level result for food-delivery applications shows a clearer profile gap than the global average alone. Table~\ref{tab:eating-mean-dps} summarizes the mean DPS exposure for the food-delivery category across all audited applications in that scope. Figure~\ref{fig:mean-exposure-eating} shows the corresponding heatmap, where the separation between profiles is especially visible in Pressure and Forced Action.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Profile-level mean DPS exposure for food-delivery applications.}
+    \label{tab:eating-mean-dps}
+    \footnotesize
+    \begin{tabular}{lrrrrrrrr}
+        \toprule
+        Profile & I & F & P & C & S & N & FA & Total / Mean \\
+        \midrule
+        High-payment shopping & 0.442 & 0.058 & 0.542 & 0.000 & 0.033 & 0.183 & 0.975 & 2.233 / 0.319 \\
+        Low-payment browsing & 0.242 & 0.092 & 0.600 & 0.000 & 0.008 & 0.108 & 0.825 & 1.875 / 0.268 \\
+        Bargain hunter & 0.442 & 0.100 & 0.483 & 0.000 & 0.000 & 0.075 & 0.925 & 2.025 / 0.289 \\
+        \bottomrule
+    \end{tabular}%
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_eating.png}
+    \caption{Mean DPS exposure heatmap for food-delivery and eating-related applications.}
+    \label{fig:mean-exposure-eating}
+\end{figure}
+
+\paragraph{Social evidence.}
+Social applications show the clearest category-level separation among the audited domains. Table~\ref{tab:social-mean-dps} summarizes the mean DPS exposure for social applications across the audited sample. Figure~\ref{fig:mean-exposure-social} shows the corresponding heatmap, where Interface Interference, Friction, and Nagging differ visibly across profiles.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Profile-level mean DPS exposure for social applications.}
+    \label{tab:social-mean-dps}
+    \footnotesize
+    \begin{tabular}{lrrrrrrrr}
+        \toprule
+        Profile & I & F & P & C & S & N & FA & Total / Mean \\
+        \midrule
+        High-payment shopping & 1.319 & 0.451 & 0.504 & 0.053 & 0.053 & 0.389 & 0.044 & 2.814 / 0.402 \\
+        Low-payment browsing & 0.958 & 0.250 & 0.333 & 0.083 & 0.100 & 0.242 & 0.083 & 2.050 / 0.293 \\
+        Bargain hunter & 1.089 & 0.384 & 0.473 & 0.161 & 0.045 & 0.286 & 0.080 & 2.473 / 0.353 \\
+        \bottomrule
+    \end{tabular}%
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_social.png}
+    \caption{Mean DPS exposure heatmap for social applications.}
+    \label{fig:mean-exposure-social}
+\end{figure}
+
 \paragraph{Interpretation.}
-The profile-level means suggest observed exposure differences rather than a single universal dark-pattern profile for each app. The high-payment shopping profile is associated with higher average exposure in Interface Interference and Pressure, which is consistent with trajectories that more often enter purchase, membership, shopping-cart, checkout, or promotion-related interfaces. The bargain-hunter profile also shows relatively high exposure in promotion-sensitive dimensions, which is consistent with searches for discounts, coupons, group-buying opportunities, flash sales, and reward mechanisms. By contrast, the low-payment browsing profile has the lowest aggregate mean, but it still encounters non-trivial Forced Action exposure, such as login, notification, location, or commitment prompts. These results suggest that dark pattern exposure is shaped by the interaction path followed by the user profile, not only by the static presence of interface elements in an app.
+The profile-level means suggest observed exposure differences rather than a single universal dark-pattern profile for each app, but the averages alone are not sufficiently expressive. The high-payment shopping profile is associated with higher average exposure in Interface Interference and Pressure, which is consistent with trajectories that more often enter purchase, membership, shopping-cart, checkout, or promotion-related interfaces. The bargain-hunter profile also shows relatively high exposure in promotion-sensitive dimensions, which is consistent with searches for discounts, coupons, group-buying opportunities, flash sales, and reward mechanisms. By contrast, the low-payment browsing profile has the lowest aggregate mean, but it still encounters non-trivial Forced Action exposure, such as login, notification, location, or commitment prompts. More importantly, the food-delivery and social results, together with their heatmaps and category-level tables, make the exposure gap visibly clearer: the category-level patterns show a more pronounced separation between profiles than the global averages alone. These results suggest that dark pattern exposure is shaped by the interaction path followed by the user profile, not only by the static presence of interface elements in an app.
 
 \paragraph{Caveat.}
 These results should be interpreted as profile-conditioned exposure differences in the observed audit data. The experiment measures visible interface exposure under controlled profiles; it does not reveal the internal decision logic of the applications. Therefore, the findings are best understood as evidence that controlled profiles are associated with different DPS distributions. Whether these differences arise from personalization, rule-based interface flows, recommendation mechanisms, promotion systems, or ordinary navigation differences remains outside the scope of this experiment.
@@ -72,6 +133,30 @@ The running mean convergence analysis suggests that the exposure estimates becom
 \paragraph{Evidence.}
 For a given profile and DPS dimension, the running mean after step $t$ is calculated from all annotated observations collected from step 1 to step $t$. At the beginning of each exploration trajectory, a single pop-up, login prompt, checkout page, or promotional banner can strongly affect the cumulative average because the sample size is still small. After repeated interactions, the curves gradually become smoother. Most dimensions stabilize within the 20--30 step range used by the audit protocol, which indicates that the final profile-level estimates are less sensitive to any single screen state.
 
+\paragraph{WangYiYun example.}
+The WangYiYun trajectories provide a concrete illustration of this stabilization pattern at the single-application level. Figures~\ref{fig:wangyiyun-curve-high}, \ref{fig:wangyiyun-curve-low}, and \ref{fig:wangyiyun-curve-bargain} show the running mean exposure curves for the high-payment shopping, low-payment browsing, and bargain-hunter profiles, respectively. Although the early steps fluctuate more strongly, the later segments become visibly smoother, especially for the dominant dimensions that remain active across repeated interactions.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_high_payment_shopping_WangYiYun_entertainment.png}
+    \caption{Running mean DPS exposure curve for WangYiYun under the high-payment shopping profile.}
+    \label{fig:wangyiyun-curve-high}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_low_payment_browsing_WangYiYun_entertainment.png}
+    \caption{Running mean DPS exposure curve for WangYiYun under the low-payment browsing profile.}
+    \label{fig:wangyiyun-curve-low}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_bargain_hunter_WangYiYun_entertainment.png}
+    \caption{Running mean DPS exposure curve for WangYiYun under the bargain-hunter profile.}
+    \label{fig:wangyiyun-curve-bargain}
+\end{figure}
+
 \paragraph{Interpretation.}
 The convergence pattern supports the methodological choice of treating exposure as an expectation, denoted as $E(D \mid A)$, rather than as a simple count of detected dark pattern instances. A count-based measure can show how many times a label appears, but it does not directly express the average exposure level associated with a profile-conditioned trajectory. The running mean curves make this expectation-based interpretation visible. As the trajectory grows longer, the estimate becomes less sensitive to individual screens and more representative of the profile's typical exposure pattern in that app or category. This design follows the broader logic of algorithm auditing and exposure measurement, where repeated observations are needed to characterize the behavior of black-box systems under controlled conditions \cite{sandvig2014auditing,hannak2013personalization,srba2023youtube}.
 
@@ -79,6 +164,13 @@ The convergence pattern supports the methodological choice of treating exposure 
 Stabilization within the audited trajectories does not mean that all possible dark pattern exposure in an application has been exhausted. Some dark patterns may appear only after longer-term use, repeated purchases, account aging, seasonal promotions, or accumulated behavioral history. In addition, the archived result files show that a small number of app-profile runs contain fewer than the planned 30 steps. The convergence result therefore supports the reliability of this course-scale experiment, but it does not remove the need for longer-term or larger-scale audits.
 
 \section{Finding 3: Statistical Evidence for Profile-dependent Exposure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/permutation_test_intuition.png}
+    \caption{Permutation Test Intuition}
+    \label{fig:permutation_test_intuition}
+\end{figure}
 
 \paragraph{Result.}
 The statistical tests provide mixed but informative evidence for profile-dependent exposure. Across all apps, the low-payment browsing and high-payment shopping profiles differ significantly after false-discovery-rate correction. At the category level, the strongest evidence appears in eating and social applications, while the entertainment category does not show statistically robust pairwise differences under the permutation tests.

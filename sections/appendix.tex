@@ -3,6 +3,13 @@
 
 This appendix provides supplementary materials that support the methodological transparency, reproducibility, and interpretability of the profile-aware dark pattern auditing framework. While the main body of the report focuses on the conceptual framework, experimental design, major findings, and statistical interpretation, the appendix collects the complete profile settings, keyword pools, annotation guidelines, full visualization outputs, convergence evidence, and statistical validation tables. These materials are intended to make the auditing procedure more transparent and to allow readers to understand how profile-conditioned exposure was operationalized and evaluated.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/appendix_artifact_index.png}
+    \caption{Appendix Artifact Index}
+    \label{fig:appendix-artifact-index}
+\end{figure}
+
 \section{Appendix A: Full Profile Configuration}
 \label{app:profile-configuration}
 
@@ -229,6 +236,8 @@ For a DPS dimension \(d\), the running mean after \(t\) interaction steps can be
 \bar{D}_{A,d}^{(t)} = \frac{1}{t}\sum_{\tau=1}^{t} D_{A,d}^{(\tau)},
 \]
 where \(A\) denotes the controlled profile and \(D_{A,d}^{(\tau)}\) denotes the observed DPS label for dimension \(d\) at step \(\tau\).
+
+\input{sections/appendix_curves.tex}
 
 \begin{figure}[htbp]
     \centering

@@ -40,6 +40,13 @@ Future work could expand the framework across more applications, more categories
 
 Repeated audits over time would also be valuable. Mobile applications frequently update their interfaces, recommendation strategies, promotion mechanisms, and consent flows. A single audit captures only one time window. By repeating the same profile-conditioned audit monthly or across major app versions, researchers could observe whether dark pattern exposure is persistent, seasonal, or associated with specific platform updates. This would improve the generalizability and temporal validity of the framework.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/pictures/future_work_roadmap.png}
+    \caption{Future Work Roadmap}
+    \label{fig:future_work_roadmap}
+\end{figure}
+
 \section{Stronger Statistical Modeling}
 
 Finally, future work can strengthen the statistical analysis of profile-dependent exposure. The current framework already uses profile-conditioned exposure estimation \(E(D \mid A)\), pairwise exposure differences \(\Delta(A_i, A_j)\), permutation tests, q-values, L1 distance, and Cramér’s V. These methods provide useful evidence of association between user profile and DPS exposure, but more advanced models could provide a clearer decomposition of where the differences come from.

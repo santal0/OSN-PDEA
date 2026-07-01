@@ -37,6 +37,7 @@
 \RequirePackage{fancyhdr}               % fancy headers
 \RequirePackage{lastpage}               % "X of Y" footer
 \RequirePackage{parskip}                % new line after each paragraph w/o indent
+\RequirePackage{indentfirst}            % indent first paragraph after sectioning commands
 \RequirePackage{setspace}               % 1.5 line spacing
 \RequirePackage[explicit]{titlesec}     % chapter styling
 \RequirePackage[most]{tcolorbox}        % pretty boxes
