@@ -4,13 +4,15 @@
 
 The system is designed as a profile-aware auditing pipeline that converts abstract user profiles into concrete app interaction trajectories and then into measurable dark-pattern exposure data. Rather than treating dark patterns as static interface elements that can be observed from a single screen, the framework records how exposure emerges during repeated interactions under controlled user assumptions. This design follows the broader logic of black-box auditing, where the internal mechanisms of a platform are not directly accessible, but their observable outputs can be compared under controlled experimental conditions \cite{sandvig2014auditing,srba2023youtube,haroon2023youtubeaudit}.
 
-The pipeline begins with Profile Configuration, where each user profile is defined through behavior probabilities and interest-related keyword distributions. The system then performs Action Sampling based on the behavior distribution of the selected profile. The sampled action is passed to the Instruction Generation module, which translates it into a concrete natural-language interaction instruction. A human operator or semi-automated executor then performs the corresponding App Interaction on a mobile application. After the interaction, the system collects a Screenshot using a consistent naming and storage convention. The screenshot is then reviewed in the DPS Annotation Tool, where annotators assign seven DPS labels: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. Finally, the annotated record is stored in the Exposure Database and used by the Analysis Module to estimate profile-conditioned exposure and differential exposure patterns.
+The pipeline begins with Profile Configuration, where each user profile is defined through behavior probabilities and interest-related keyword distributions. At the beginning of each app-profile run, the workbench loads the configuration, fixes the pseudo-random seed, creates a timestamped run directory, and initializes an empty step record. The system then performs Action Sampling based on the behavior distribution of the selected profile. If the sampled action is search-oriented, the keyword category and concrete keyword are sampled from the profile-specific keyword distribution. The sampled action and keyword are passed to the Instruction Generation module, which translates them into a concrete natural-language interaction instruction. A human operator or semi-automated executor then performs the corresponding App Interaction on a mobile application. After the interaction, the system waits for a fixed delay and collects a Screenshot using a consistent naming and storage convention. The screenshot is then reviewed in the DPS Annotation Tool, where annotators assign seven DPS dimensions: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. Finally, the annotated step is appended to the Exposure Database and used by the Analysis Module to estimate profile-conditioned exposure and differential exposure patterns.
 
 The complete pipeline can be summarized as:
 \[
-\text{Profile Configuration} \rightarrow \text{Action Sampling} \rightarrow \text{Instruction Generation} \rightarrow \text{App Interaction} \rightarrow \text{Screenshot Collection} \rightarrow \text{DPS Annotation} \rightarrow \text{Exposure Database} \rightarrow \text{Differential Analysis}.
+\text{Profile Configuration} \rightarrow \text{Run Initialization} \rightarrow \text{Action/Keyword Sampling} \rightarrow \text{Instruction Generation} \rightarrow \text{App Interaction} \rightarrow \text{Screenshot Collection} \rightarrow \text{DPS Annotation} \rightarrow \text{Step Persistence} \rightarrow \text{Differential Analysis}.
 \]
 This implementation structure ensures that the experiment is not merely a collection of screenshots, but a controlled transformation from profile assumptions to interaction traces and then to structured exposure measurements. In the project scale, the framework supports 16 applications, 3 profiles, and 30 interaction steps per profile-app pair, producing 1,440 interaction records and 10,080 DPS labels.
+
+One practical feature of the workflow is that persistence happens after every annotated step rather than only after a full run is completed. The workbench writes both \texttt{steps.jsonl} and \texttt{steps.csv} in the current run directory after each valid step, so interrupted annotation sessions do not invalidate previously collected evidence. The operator can also stop a run early or undo the most recent step before continuing. These controls make the workflow closer to an auditable experiment log than a one-time screenshot collection process.
 
 \section{Repository Structure}
 \label{subsec:repository-structure}
@@ -20,9 +22,9 @@ The implementation is organized so that profile definitions, generated interacti
 \begin{itemize}
 	\item \texttt{codes/config.json}: profile-independent experiment configuration, including the maximum number of steps, screenshot delay, output directory, and random seed.
 	\item \texttt{codes/profiles.json}: profile configuration file containing controlled profile definitions, behavior distributions, keyword pools, and keyword probabilities.
-	\item \texttt{codes/main.py}: instruction generator and interactive audit workbench. It samples actions and keywords, generates executable instructions, records screenshots, collects DPS annotations, and writes step-level records.
+	\item \texttt{codes/main.py}: instruction generator and interactive audit workbench. It samples actions and keywords, generates executable instructions, records screenshots when automatic screenshot support is available, collects DPS annotations, supports undo and early-stop operations, and writes step-level records.
 	\item \texttt{results/\{app\}/\{profile\}/\{run\_id\}/screenshots/}: screenshot folder for each app-profile run. Screenshots are stored at the step level and are linked from the corresponding record.
-	\item \texttt{results/\{app\}/\{profile\}/\{run\_id\}/steps.csv} and \texttt{steps.jsonl}: annotation files containing the sampled action, keyword, screenshot path, DPS labels, timestamp, and optional notes for each interaction step.
+	\item \texttt{results/\{app\}/\{profile\}/\{run\_id\}/steps.csv} and \texttt{steps.jsonl}: annotation files containing the sampled action, keyword category, keyword, generated instruction, screenshot path, DPS scores, timestamp, and optional notes for each interaction step.
 	\item \texttt{codes/scripts/analysis\_curve.py}, \texttt{codes/scripts/analysis\_heatmap.py}, and \texttt{codes/scripts/statistical\_tests.py}: analysis scripts used to compute running means, exposure heatmaps, and statistical validation outputs.
 	\item \texttt{figures/} and \texttt{figures/statistics/}: figure output folders containing heatmaps, convergence curves, and statistical-test visualizations used in the report.
 \end{itemize}
@@ -53,6 +55,8 @@ When the sampled action is browsing or scrolling, the instruction may be:
 \]
 These instructions are intentionally concrete. They specify what to do, what kind of interface to stop at, how long to wait, and when to collect evidence. This reduces arbitrary decision-making during interaction and makes the audit procedure easier to repeat.
 
+The current workbench keeps the executor in the loop rather than fully automating app control. The program samples the action, records the instruction, manages screenshots and annotations, and persists the data, while the operator performs the mobile interaction according to the displayed instruction. This implementation boundary avoids relying on brittle app-specific automation scripts and makes the same workflow usable across applications with different layouts. To reduce operator discretion, the instruction text is saved with each step record, so later inspection can verify what the operator was asked to do before the screenshot was captured.
+
 The module does not attempt to infer the internal logic of the application. It only generates external interaction prompts based on controlled profile assumptions. In this sense, the instruction generation module operationalizes profile-conditioned behavior without claiming to simulate the full complexity of real user activity. It provides a practical compromise between experimental control and ecological relevance: the actions are simple enough to standardize, but still close to common app behaviors such as searching, browsing, clicking recommended content, and entering decision-related interfaces.
 
 \section{Screenshot Collection}
@@ -61,19 +65,21 @@ Screenshot collection provides the visual evidence for subsequent DPS annotation
 
 The system also uses a consistent naming convention for screenshots:
 \[
-\texttt{screenshots/\{app\_name\}/\{profile\_name\}/step\_\{step\_id\}.png}
+\texttt{results/\{app\_name\}/\{profile\_name\}/\{run\_id\}/screenshots/step\_\{step\_id\}.png}
 \]
-This format encodes the application, profile, and step number directly in the file path. It makes screenshots easier to trace, inspect, and match with database records. For example, the screenshot for the seventh step of a high-payment shopping profile in a given app would be stored under that app and profile directory with a corresponding step identifier.
+This format encodes the application, profile, run identifier, and step number directly in the file path. It makes screenshots easier to trace, inspect, and match with database records. The run identifier is important because the same app-profile condition may be repeated; without it, repeated runs could overwrite or mix screenshots from different sessions. For example, the screenshot for the seventh step of a high-payment shopping profile in a given app would be stored under that app, profile, and timestamped run directory with the file name \texttt{step\_007.png}.
+
+The implementation supports both automatic and manual screenshot collection. If screenshot automation is available through the local environment, the workbench captures the screen after the configured delay. If automatic capture is unavailable, the workbench prints the expected file path and allows the operator to place a manually captured screenshot there before continuing. This fallback keeps the workflow usable across operating systems and emulator setups while preserving the same path convention in the saved records.
 
 Device and environment consistency are also important. When possible, the same device configuration, account initialization strategy, screen size, network condition, and app version should be maintained across profiles. In the project, controlled conditions include new accounts, cleared histories, comparable app configurations, and profile-specific changes mainly through keyword pools and action distributions. Privacy protection is also necessary during screenshot collection. Screenshots should avoid exposing personal accounts, private messages, payment credentials, precise locations, or other sensitive information. If such information appears, it should be removed, masked, or excluded from the dataset before analysis.
 
 \section{DPS Annotation Tool}
 
-The DPS annotation tool converts visual observations from screenshots into structured dark-pattern exposure labels. For each screenshot, the tool displays the image and allows annotators to input the seven DPS dimensions: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. In this implementation description, the labels are treated as binary inputs for annotation: each dimension is marked as present or absent for the screenshot being reviewed. This design keeps the annotation process manageable for the project scale while preserving the multidimensional structure of dark-pattern exposure.
+The DPS annotation tool converts visual observations from screenshots into structured dark-pattern exposure labels. For each screenshot, the tool allows annotators to input the seven DPS dimensions: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. The implementation records numeric scores rather than only binary labels. In particular, Interface Interference can be coded as an ordinal score, Friction can be coded as the extra operation count required to refuse or exit relative to accepting or continuing, and Nagging can be coded as a repeated-interruption count. Pressure, Contextual Deception, Sneaking, and Forced Action are typically coded as binary indicators. When an analysis requires exposure rates, the raw numeric scores can be converted to binary occurrence indicators by applying \(D_i>0\). When an analysis requires intensity, the raw mean score can be used directly.
 
 The tool also supports correction during annotation. Annotators may undo or revise a previous input if they notice an error, and intermediate records can be saved to avoid data loss during long annotation sessions. This is important because the full experiment produces 1,440 interaction records and 10,080 DPS labels. Without intermediate saving and correction support, the annotation process would be more vulnerable to accidental omissions or inconsistent record keeping.
 
-The annotation interface functions as a measurement layer between raw screenshots and statistical analysis. A screenshot alone is not yet an analyzable exposure record. It must first be interpreted according to the DPS framework and converted into structured labels. For example, a pop-up that visually emphasizes a paid option may be annotated as Interface Interference; a countdown or scarcity message may be annotated as Pressure; a screen that requires login or agreement before continuing may be annotated as Forced Action. The tool therefore standardizes how visual interface evidence becomes data for profile-conditioned exposure estimation.
+The annotation interface functions as a measurement layer between raw screenshots and statistical analysis. A screenshot alone is not yet an analyzable exposure record. It must first be interpreted according to the DPS framework and converted into structured labels or scores. For example, a pop-up that visually emphasizes a paid option may be annotated as Interface Interference; a countdown or scarcity message may be annotated as Pressure; a screen that requires login or agreement before continuing may be annotated as Forced Action. The tool therefore standardizes how visual interface evidence becomes data for profile-conditioned exposure estimation while still preserving enough score detail for later robustness checks.
 
 \section{Exposure Database}
 
@@ -94,15 +100,17 @@ Table~\ref{tab:exposure_database_schema} shows the analysis-ready data schema us
 	\texttt{profile} & Controlled profile used in the interaction step \\
 	\texttt{step\_id} & Step number within the profile-app trajectory \\
 	\texttt{action} & Action sampled from the profile behavior distribution \\
+	\texttt{category} & Keyword category sampled for search-oriented actions \\
 	\texttt{keyword} & Sampled keyword if the action involves search \\
+	\texttt{instruction} & Natural-language instruction shown to the operator \\
 	\texttt{screenshot\_path} & File path of the collected screenshot \\
-	\texttt{I} & Interface Interference label \\
-	\texttt{F} & Friction label \\
-	\texttt{P} & Pressure label \\
-	\texttt{C} & Contextual Deception label \\
-	\texttt{S} & Sneaking label \\
-	\texttt{N} & Nagging label \\
-	\texttt{FA} & Forced Action label \\
+	\texttt{I} & Interface Interference score \\
+	\texttt{F} & Friction score or operation-count difference \\
+	\texttt{P} & Pressure score or indicator \\
+	\texttt{C} & Contextual Deception score or indicator \\
+	\texttt{S} & Sneaking score or indicator \\
+	\texttt{N} & Nagging score or interruption count \\
+	\texttt{FA} & Forced Action score or indicator \\
 	\texttt{timestamp} & Time at which the record was created or annotated \\
 	\texttt{notes} & Optional comments for ambiguous or notable cases \\
 	\hline
@@ -113,7 +121,7 @@ This schema supports both traceability and aggregation. At the lowest level, res
 
 \section{Analysis Module}
 
-The analysis module computes exposure estimates and differential exposure statistics from the exposure database. At the profile level, it estimates profile-conditioned exposure \(E(D \mid A)\), where \(A\) denotes a controlled profile and \(D\) denotes a DPS dimension or DPS vector. This estimate summarizes how frequently a profile encounters each type of dark-pattern exposure across its interaction trajectory. At the app level, the module aggregates DPS labels within each application. At the category level, it further groups applications into broader categories, allowing the project to examine whether certain app categories are associated with consistently higher exposure in specific DPS dimensions.
+The analysis module computes exposure estimates and differential exposure statistics from the exposure database. At the profile level, it estimates profile-conditioned exposure \(E(D \mid A)\), where \(A\) denotes a controlled profile and \(D\) denotes a DPS dimension or DPS vector. Depending on the analysis mode, \(D\) can refer either to the raw DPS score or to a binary occurrence variable \(1[D_i>0]\). The former summarizes exposure intensity, while the latter summarizes how frequently a profile encounters each type of dark-pattern exposure across its interaction trajectory. At the app level, the module aggregates DPS labels within each application. At the category level, it further groups applications into broader categories, allowing the project to examine whether certain app categories are associated with consistently higher exposure in specific DPS dimensions.
 
 The module also computes pairwise exposure differences:
 \[
@@ -123,4 +131,4 @@ This comparison is used to examine whether two controlled profiles receive diffe
 
 Several visualization and statistical components are included. Heatmaps display exposure patterns across profiles, applications, categories, and DPS dimensions. Running mean convergence curves track how exposure estimates change as interaction steps accumulate, helping assess whether the estimates gradually stabilize over repeated interactions. The representative heatmaps and statistical validation plots are reported in Chapter~\ref{chap:results}, with the full visualization set collected in Appendix~\ref{app:full-heatmaps}.
 
-For statistical validation, the analysis module supports permutation tests, q-values for multiple-testing correction, L1 distance, and Cramér’s V. Permutation tests compare observed profile gaps against gaps obtained under randomized profile assignments. Q-values reduce the risk of overinterpreting repeated significance tests across multiple DPS dimensions or app categories. L1 distance measures the magnitude of difference between DPS exposure vectors, while Cramér’s V provides an association measure between profile type and exposure labels. Together, these outputs allow the report to discuss both statistical evidence and practical exposure differences without relying on a single metric.
+For statistical validation, the analysis module supports permutation tests, q-values for multiple-testing correction, L1 distance, Cramér’s V, Welch's \(t\)-tests, and Mann--Whitney \(U\) tests. Permutation tests compare observed profile gaps against gaps obtained under randomized profile assignments. Q-values reduce the risk of overinterpreting repeated significance tests across multiple DPS dimensions or app categories. L1 distance measures the magnitude of difference between DPS exposure vectors, while Cramér’s V provides an association measure between profile type and exposure labels. The chi-square contingency analysis can be run in binary mode, where each nonzero DPS score counts as one occurrence, or in score mode, where raw DPS scores are summed. Together, these outputs allow the report to discuss both statistical evidence and practical exposure differences without relying on a single metric.

@@ -1,0 +1,48 @@
+《The Dark (Patterns) Side of UX Design》定性提出了可测量的 dark pattern 标准。但是没有定量。
+
+
+Mathur et al.《Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites 》定量用 0/1 表示 dark pattern是否存在，定量提出了可测量的 dark pattern标准。
+Mathur et al. demonstrated that dark patterns can be systematically identified, categorized, and quantified at scale through observable UI features and behavioral traces. However, their analysis focuses on website-level prevalence rather than user-level differential exposure. Building upon this quantifiable representation of dark patterns, we investigate whether different user profiles receive systematically different exposures to dark patterns.
+
+
+Mathur et al. 2021, 《What Makes a Dark Pattern... Dark?》把 dark pattern 从“列举坏界面”推进到“可解释、可测量的研究对象”。数字市场可以学习并优化针对个体用户的操纵技术，从而提高总体效果；并且基于个人数据的市场操纵可能损害隐私和自主性。这个地方可以作为“为什么 profile 可能影响 dark pattern exposure”的理论依据。某些界面会使一组用户相较另一组用户受到不利对待；并且把它放入 dark pattern 的 choice architecture 分类中。
+
+
+《AComprehensive Study on Dark Patterns》给出了68个 Dark Pattern Type，可以作为标准。作者在 taxonomy 里给每个 Dark Pattern 标注了 Common Scenarios，这说明作者实际上承认不同环境下出现的Dark Pattern  类型不同，而我们的逻辑链应该能推导不同profile的环境不同。
+
+《Detecting Dark Patterns in User Interfaces Using Logistic Regression and Bag-of-Words Representation》明确把 Dark Pattern 转化为了可计算对象0/1表示是否存在dark pattern。Dark Pattern 并非只能依赖专家主观判断，而可以被表示为机器学习中的特征空间对象。
+
+《Auditing YouTube's Recommendation System for Ideological Bias》：YouTube 确实会根据用户历史行为推送不同政治倾向内容。
+
+《USER MODELING AND USER PROFILING:  A COMPREHENSIVE SURVEY》作者认为 user model 和 user profile 在近十年文献中高度重叠，可以互换；并定义 user profile 是用户偏好、需求、行为、人口属性的结构化表示，可由直接反馈或机器学习/数据挖掘从用户数据中推断。
+
+《A Survey of User Profiling: State-of-the-Art, Challenges, and Solutions》向量化，以速度，价格偏好，关键词偏好，可以定义profile
+
+《Inferring User Interests in Microblogging Social Networks: A Survey》profile 可以是“个体用户特征的数据结构/表示”。文中讨论 keyword profile、concept profile、multi-faceted profile，说明用关键词/概念表达兴趣是成熟做法
+
+《Towards Universal Sequence Representation Learning for Recommender Systems》把用户历史行为表示为 chronological interaction sequence，并学习 sequence representation，这能支撑你把用户 profile 定义为行为序列/偏好向量
+
+
+《Problematic Machine Behavior: A Systematic Literature
+Review of Algorithm Audits》研究可以被定义为一种 algorithm audit：对公共 app / 平台系统进行经验性测试，收集不同 profile 下的界面输出，并用明确指标衡量是否出现 problematic behavior。
+
+《Multi-Interest-Aware User Modeling for Large-Scale Sequential
+Recommendations 》用历史行为（行为，时间）定义用户
+
+《Auditing YouTube's Recommendation System》：algorithm audit / personalization audit 研究思路：先交互到“确定 profile effect 已经稳定出现（effect saturation）”，然后进行截图，本文献测的是20-40次交互
+
+《Auditing Algorithms Research Methods for Detecting Discrimination on Internet Platforms》算法审计的奠基性论文，提出了通过受控用户模拟造成不同的结果来检测平台行为中系统性差异的方法。
+
+<Auditing Radicalization Pathways on YouTube>奠基性工作,用户如何一步步暴露的
+
+<Measuring Personalization of Web Search>“personalization measurement / differential exposure”方向的重要奠基工作之一。第一次系统性做了：“不同用户 → 不同搜索结果”
+
+《Multi-Interest Network with Dynamic Routing for Recommendation at Tmall》提到，首先推荐系统工作主流就是把用户偏好组装成由感兴趣的项目、关键词和主题组成的向量。本文的贡献是用某个词语与这些向量的相似度之和来确定对这个东西感不感兴趣。这篇做limitation吧。
+
+感觉借鉴了好多推荐系统的研究
+
+《Deep Interest Network for Click-Through Rate Prediction》：用户存在兴趣表示
+
+《A Dynamic Bayesian Network Click Model for Web Search Ranking》：behavior是一个概率分布，但是这个概率分布应该是会变化的，但是又说了当作不变的其实只是略有差距，所以我们直接定义了行为是一个概率密度，应当变化的是limitation
+
+《Latent Dirichlet Allocation》用概率分布表示不可见的文章主题

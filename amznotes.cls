@@ -113,13 +113,11 @@
 % LINKS
 
 \hypersetup{
-    colorlinks=false,
-    hidelinks,
+    colorlinks=true,
     linktoc=all,
-    linkbordercolor=black,
-    urlbordercolor=blue,
-    citebordercolor=black,
-    pdfborderstyle={0 0 0}   % Underline links; only appears in pdf viewer, not printed
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue
 }
 
 % ------------------------------------------------------------
