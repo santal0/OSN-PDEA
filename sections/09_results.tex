@@ -32,19 +32,19 @@ This section reports the empirical results of the profile-aware dark pattern aud
     \end{tabular}
 \end{table}
 
-Overall, the results suggest that dark pattern exposure is not uniform across controlled user profiles. Different profiles produce visibly different DPS distributions, and these differences appear across multiple forms of analysis. The heatmaps show that the average exposure intensity varies not only across applications and app categories, but also across user profiles. The running mean convergence curves further indicate that exposure estimates gradually stabilize as interaction steps accumulate, suggesting that the results are not driven by isolated screenshots or single-step observations. Finally, the statistical validation metrics, including Mann-Whitney U q-values, permutation tests, L1 distance, and Cramér's V, provide converging evidence that profile type is associated with measurable differences in dark pattern exposure.
+Overall, the results suggest that dark pattern exposure is not uniform across controlled user profiles. Different profiles produce visibly different DPS distributions, and these differences appear across multiple forms of analysis. The heatmaps show that the average raw exposure intensity varies not only across applications and app categories, but also across user profiles. The running mean convergence curves further indicate that exposure estimates gradually stabilize as interaction steps accumulate, using the effective observed length of each trajectory. Finally, the statistical validation metrics, including Mann-Whitney U q-values, permutation tests, L1 distance, and Cramér's V, provide converging evidence that profile type is associated with measurable differences in dark pattern exposure.
 
-The main empirical pattern is that commercially oriented profiles, especially the high-payment shopping profile and the bargain-hunter profile, tend to encounter stronger exposure in dimensions related to interface interference and pressure. This does not imply that platforms deliberately single out those profiles with dark patterns. A more cautious interpretation is that profile-conditioned behavior changes the interaction trajectory, and different trajectories lead users into different interface regions where dark patterns are more or less likely to appear. For example, a user who frequently enters purchase, membership, coupon, or payment interfaces naturally observes more decision-stage interface designs than a user who mainly browses information feeds. In this sense, the results support the central claim of this project: dark pattern exposure should be analyzed as a profile-conditioned distribution along interaction trajectories, rather than as a static property of an application.
+The clearest aggregate profile gap appears in Interface Interference. Pressure is also important, but it varies by category: the all-app and food-delivery tables do not support a claim that the bargain-hunter profile always receives stronger Pressure exposure. This does not imply that platforms deliberately single out any profile with dark patterns. A more cautious interpretation is that profile-conditioned behavior changes the interaction trajectory, and different trajectories lead users into different interface regions where dark patterns are more or less likely to appear. For example, a user who frequently enters purchase, membership, coupon, or payment interfaces naturally observes more decision-stage interface designs than a user who mainly browses information feeds. In this sense, the results support the central claim of this project: dark pattern exposure should be analyzed as a profile-conditioned distribution along interaction trajectories, rather than as a static property of an application.
 
 \section{Finding 1: Different Profiles Show Different DPS Patterns}
 
 \paragraph{Result.}
-The three controlled profiles show different DPS exposure patterns. At the aggregate level, the high-payment shopping profile has the highest mean DPS exposure, followed by the bargain-hunter profile and the low-payment browsing profile. The difference is not uniform across dimensions: the largest profile-level changes appear in Interface Interference, Pressure, and Forced Action, while Contextual Deception and Sneaking remain comparatively low in the overall dataset.
+The three controlled profiles show different DPS exposure patterns. At the aggregate level, the high-payment shopping profile has the highest mean raw DPS intensity, followed by the bargain-hunter profile and the low-payment browsing profile. The difference is not uniform across dimensions: the clearest aggregate profile gap appears in Interface Interference, while Pressure and Forced Action vary more by application category. Contextual Deception and Sneaking remain comparatively low in the overall dataset.
 However, simply looking at the overall averages is not sufficiently distinctive on its own. The profile gap becomes much clearer when the analysis is broken down by application category, especially in social and food-delivery applications.
 
 \begin{table}[htbp]
     \centering
-    \caption{Profile-level mean DPS exposure across all audited applications.}
+    \caption{Profile-level raw DPS intensity means across all audited applications.}
     \label{tab:profile-mean-dps}
     \footnotesize
     \begin{tabular}{lrrrrrrrr}
@@ -59,21 +59,21 @@ However, simply looking at the overall averages is not sufficiently distinctive 
 \end{table}
 
 \paragraph{Evidence.}
-Table~\ref{tab:profile-mean-dps} reports the mean DPS values computed from the archived step-level CSV files. Figure~\ref{fig:mean-exposure-all} provides the corresponding heatmap. In this heatmap, rows represent controlled profiles and columns represent the seven DPS dimensions: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. The color intensity of each cell represents the average exposure score for a profile-dimension combination. A darker or more saturated cell therefore indicates stronger average exposure in that DPS dimension under a particular profile condition.
+Table~\ref{tab:profile-mean-dps} reports raw DPS intensity means computed from the archived step-level CSV files. Figure~\ref{fig:mean-exposure-all} provides the corresponding heatmap. In this heatmap, rows represent controlled profiles and columns represent the seven DPS dimensions: Interface Interference, Friction, Pressure, Contextual Deception, Sneaking, Nagging, and Forced Action. The color intensity of each cell represents the average raw exposure score for a profile-dimension combination. A darker or more saturated cell therefore indicates stronger average exposure intensity in that DPS dimension under a particular profile condition. Occurrence-rate analyses, when used, are based on the binary indicator \(D_i>0\).
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_all.png}
-    \caption{Mean DPS exposure across all audited applications and controlled profiles.}
+    \caption{Raw DPS intensity mean heatmap across all audited applications and controlled profiles.}
     \label{fig:mean-exposure-all}
 \end{figure}
 
 \paragraph{Food-delivery evidence.}
-The category-level result for food-delivery applications shows a clearer profile gap than the global average alone. Table~\ref{tab:eating-mean-dps} summarizes the mean DPS exposure for the food-delivery category across all audited applications in that scope. Figure~\ref{fig:mean-exposure-eating} shows the corresponding heatmap, where the separation between profiles is especially visible in Pressure and Forced Action.
+The category-level result for food-delivery applications shows a clearer profile gap than the global average alone. Table~\ref{tab:eating-mean-dps} summarizes the raw DPS intensity means for the food-delivery category across all audited applications in that scope. Figure~\ref{fig:mean-exposure-eating} shows the corresponding heatmap, where the separation between profiles is especially visible in Forced Action and several other dimensions. Pressure does not follow a simple bargain-hunter-highest pattern in this category.
 
 \begin{table}[htbp]
     \centering
-    \caption{Profile-level mean DPS exposure for food-delivery applications.}
+    \caption{Profile-level raw DPS intensity means for food-delivery applications.}
     \label{tab:eating-mean-dps}
     \footnotesize
     \begin{tabular}{lrrrrrrrr}
@@ -90,16 +90,16 @@ The category-level result for food-delivery applications shows a clearer profile
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_eating.png}
-    \caption{Mean DPS exposure heatmap for food-delivery and eating-related applications.}
+    \caption{Raw DPS intensity mean heatmap for food-delivery and eating-related applications.}
     \label{fig:mean-exposure-eating}
 \end{figure}
 
 \paragraph{Social evidence.}
-Social applications show the clearest category-level separation among the audited domains. Table~\ref{tab:social-mean-dps} summarizes the mean DPS exposure for social applications across the audited sample. Figure~\ref{fig:mean-exposure-social} shows the corresponding heatmap, where Interface Interference, Friction, and Nagging differ visibly across profiles.
+Social applications show the clearest category-level separation among the audited domains. Table~\ref{tab:social-mean-dps} summarizes the raw DPS intensity means for social applications across the audited sample. Figure~\ref{fig:mean-exposure-social} shows the corresponding heatmap, where Interface Interference, Friction, and Nagging differ visibly across profiles.
 
 \begin{table}[htbp]
     \centering
-    \caption{Profile-level mean DPS exposure for social applications.}
+    \caption{Profile-level raw DPS intensity means for social applications.}
     \label{tab:social-mean-dps}
     \footnotesize
     \begin{tabular}{lrrrrrrrr}
@@ -116,12 +116,12 @@ Social applications show the clearest category-level separation among the audite
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_social.png}
-    \caption{Mean DPS exposure heatmap for social applications.}
+    \caption{Raw DPS intensity mean heatmap for social applications.}
     \label{fig:mean-exposure-social}
 \end{figure}
 
 \paragraph{Interpretation.}
-The profile-level means suggest observed exposure differences rather than a single universal dark-pattern profile for each app, but the averages alone are not sufficiently expressive. The high-payment shopping profile is associated with higher average exposure in Interface Interference and Pressure, which is consistent with trajectories that more often enter purchase, membership, shopping-cart, checkout, or promotion-related interfaces. The bargain-hunter profile also shows relatively high exposure in promotion-sensitive dimensions, which is consistent with searches for discounts, coupons, group-buying opportunities, flash sales, and reward mechanisms. By contrast, the low-payment browsing profile has the lowest aggregate mean, but it still encounters non-trivial Forced Action exposure, such as login, notification, location, or commitment prompts. More importantly, the food-delivery and social results, together with their heatmaps and category-level tables, make the exposure gap visibly clearer: the category-level patterns show a more pronounced separation between profiles than the global averages alone. These results suggest that dark pattern exposure is shaped by the interaction path followed by the user profile, not only by the static presence of interface elements in an app.
+The profile-level means suggest observed exposure differences rather than a single universal dark-pattern profile for each app, but the averages alone are not sufficiently expressive. The high-payment shopping profile is associated with higher aggregate Interface Interference, which is consistent with trajectories that more often enter purchase, membership, shopping-cart, checkout, or promotion-related interfaces. The bargain-hunter profile also shows relatively high exposure in some promotion-sensitive contexts, which is consistent with searches for discounts, coupons, group-buying opportunities, flash sales, and reward mechanisms. However, Pressure varies by category: low-payment browsing is highest in the food-delivery table, high-payment shopping is highest in the all-app table, and the bargain-hunter profile is not uniformly dominant. By contrast, the low-payment browsing profile has the lowest aggregate mean, but it still encounters non-trivial Forced Action exposure, such as login, notification, location, or commitment prompts. More importantly, the food-delivery and social results, together with their heatmaps and category-level tables, make the exposure gap visibly clearer: the category-level patterns show a more pronounced separation between profiles than the global averages alone. These results suggest that dark pattern exposure is shaped by the interaction path followed by the user profile, not only by the static presence of interface elements in an app.
 
 \paragraph{Caveat.}
 These results should be interpreted as profile-conditioned exposure differences in the observed audit data. The experiment measures visible interface exposure under controlled profiles; it does not reveal the internal decision logic of the applications. Therefore, the findings are best understood as evidence that controlled profiles are associated with different DPS distributions. Whether these differences arise from personalization, rule-based interface flows, recommendation mechanisms, promotion systems, or ordinary navigation differences remains outside the scope of this experiment.
@@ -140,21 +140,21 @@ The WangYiYun trajectories provide a concrete illustration of this stabilization
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_high_payment_shopping_WangYiYun_entertainment.png}
-    \caption{Running mean DPS exposure curve for WangYiYun under the high-payment shopping profile.}
+    \caption{Running mean raw DPS intensity curve for WangYiYun under the high-payment shopping profile.}
     \label{fig:wangyiyun-curve-high}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_low_payment_browsing_WangYiYun_entertainment.png}
-    \caption{Running mean DPS exposure curve for WangYiYun under the low-payment browsing profile.}
+    \caption{Running mean raw DPS intensity curve for WangYiYun under the low-payment browsing profile.}
     \label{fig:wangyiyun-curve-low}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\linewidth]{figures/statistics/curves_entertainment/curve_E_bargain_hunter_WangYiYun_entertainment.png}
-    \caption{Running mean DPS exposure curve for WangYiYun under the bargain-hunter profile.}
+    \caption{Running mean raw DPS intensity curve for WangYiYun under the bargain-hunter profile.}
     \label{fig:wangyiyun-curve-bargain}
 \end{figure}
 
@@ -178,7 +178,7 @@ The statistical tests provide mixed but informative evidence for profile-depende
 
 \begin{table}[htbp]
     \centering
-    \caption{Statistical summary of profile-dependent DPS exposure differences.}
+    \caption{Statistical summary of profile-dependent DPS exposure differences based on binarized occurrence \(D_i>0\).}
     \label{tab:statistical-summary}
     \footnotesize
     \setlength{\tabcolsep}{4pt}
@@ -212,28 +212,28 @@ Figures~\ref{fig:mannwhitney-qvalue-all}, \ref{fig:permutation-pvalues}, \ref{fi
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_all.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap for dimension-level DPS exposure comparisons across all audited applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for dimension-level raw DPS intensity comparisons across all audited applications.}
     \label{fig:mannwhitney-qvalue-all}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/permutation_pvalues_by_scope.png}
-    \caption{Permutation-test p-values by comparison scope.}
+    \caption{Permutation-test p-values by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:permutation-pvalues}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/permutation_observed_l1_by_scope.png}
-    \caption{Observed L1 exposure distances by comparison scope.}
+    \caption{Observed L1 exposure distances by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:permutation-l1}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/cramers_v_by_scope.png}
-    \caption{Cramér's \(V\) association strength by comparison scope.}
+    \caption{Cramér's \(V\) association strength by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:cramers-v}
 \end{figure}
 
@@ -250,28 +250,28 @@ Beyond profile-level differences, the results also reveal several category-level
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_shopping.png}
-    \caption{Mean DPS exposure heatmap for shopping applications.}
+    \caption{Raw DPS intensity mean heatmap for shopping applications.}
     \label{fig:category-heatmap-shopping}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_eating.png}
-    \caption{Mean DPS exposure heatmap for food-delivery and eating-related applications.}
+    \caption{Raw DPS intensity mean heatmap for food-delivery and eating-related applications.}
     \label{fig:category-heatmap-eating}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_entertainment.png}
-    \caption{Mean DPS exposure heatmap for entertainment applications.}
+    \caption{Raw DPS intensity mean heatmap for entertainment applications.}
     \label{fig:category-heatmap-entertainment}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_social.png}
-    \caption{Mean DPS exposure heatmap for social applications.}
+    \caption{Raw DPS intensity mean heatmap for social applications.}
     \label{fig:category-heatmap-social}
 \end{figure}
 

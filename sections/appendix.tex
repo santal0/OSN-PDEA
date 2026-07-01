@@ -15,7 +15,7 @@ This appendix provides supplementary materials that support the methodological t
 
 Appendix A reports the full controlled profile configuration used in the audit experiment. Each profile is represented by a behavior distribution over a fixed set of interaction actions. These probabilities are not intended to model any real demographic group. Instead, they define reproducible experimental agents with different interaction tendencies. In this project, the profiles are constructed from controllable interests and behaviors, while demographic attributes are deliberately excluded to reduce ethical and reproducibility concerns.
 
-Table~\ref{tab:profile-behavior-probabilities-appendix} summarizes the behavior probabilities for the three controlled profiles: the high-payment shopping profile, the low-payment browsing profile, and the bargain-hunter profile. The probabilities should sum to one within each profile.
+Table~\ref{tab:profile-behavior-probabilities-appendix} summarizes the behavior probabilities for the three controlled profiles: the high-payment shopping profile, the low-payment browsing profile, and the bargain-hunter profile. The probabilities sum to one within each profile.
 
 The table reports the conceptual action space after collapsing the operational actions used in implementation back into the four high-level categories defined in Chapter~\ref{sec:conceptual-framework}. The mapping from implementation-level actions to conceptual categories is listed in Table~\ref{tab:action-mapping}.
 
@@ -101,7 +101,7 @@ Table~\ref{tab:keyword-pools} summarizes the keyword categories used by the thre
     \end{tabular}
 \end{table}
 
-The keyword pools are not intended to exhaustively represent all possible user interests. Rather, they serve as controlled stimuli for auditing whether different interest-behavior configurations are associated with different dark pattern exposure patterns. In the full appendix, this section may also include the exact keywords used for each category, the sampling probabilities assigned to each keyword group, and examples of generated search instructions.
+The keyword pools are not intended to exhaustively represent all possible user interests. Rather, they serve as controlled stimuli for auditing whether different interest-behavior configurations are associated with different dark pattern exposure patterns. The implementation files provide the exact keywords used for each category, the sampling probabilities assigned to each keyword group, and examples of generated search instructions.
 
 \section{Appendix C: DPS Annotation Guideline}
 \label{app:dps-annotation-guideline}
@@ -112,11 +112,11 @@ DPS = [I, F, P, C, S, N, FA],
 \]
 where \(I\) refers to Interface Interference, \(F\) to Friction, \(P\) to Pressure, \(C\) to Contextual Deception, \(S\) to Sneaking, \(N\) to Nagging, and \(FA\) to Forced Action. The purpose of this guideline is to improve annotation consistency and make clear how each dimension should be interpreted during screenshot-level labeling.
 
-Table~\ref{tab:dps-guideline} provides the planned structure of the full annotation guideline. The final appendix should include detailed examples from the collected screenshots where appropriate.
+Table~\ref{tab:dps-guideline} provides the annotation guideline used to interpret the seven DPS dimensions. Detailed examples from collected screenshots are reported in the main DPS chapter where appropriate.
 
 \begin{table}[htbp]
     \centering
-    \caption{Planned DPS annotation guideline.}
+    \caption{DPS annotation guideline for mixed numeric exposure scores.}
     \label{tab:dps-guideline}
     \footnotesize
     \setlength{\tabcolsep}{3pt}
@@ -133,7 +133,7 @@ Table~\ref{tab:dps-guideline} provides the planned structure of the full annotat
         Visual or structural design that steers user attention or makes one option more salient than alternatives. &
         A large highlighted ``Buy Now'' button; a visually hidden decline option; misleading button hierarchy. &
         A neutral interface where accept and reject options are equally visible. &
-        A visually attractive button should not be labeled as interference unless it meaningfully distorts choice visibility or salience. \\
+        A visually attractive button is not labeled as interference unless it meaningfully distorts choice visibility or salience. \\
         \addlinespace
 
         Friction \((F)\) &
@@ -161,7 +161,7 @@ Table~\ref{tab:dps-guideline} provides the planned structure of the full annotat
         Hidden or delayed disclosure of costs, conditions, subscriptions, add-ons, or data-related consequences. &
         Hidden fees added near checkout; preselected add-ons; unclear membership renewal terms. &
         Fully disclosed price, fee, and subscription information before user commitment. &
-        Additional charges should not be labeled as sneaking if they are clearly disclosed before the decision point. \\
+        Additional charges are not labeled as sneaking if they are clearly disclosed before the decision point. \\
         \addlinespace
 
         Nagging \((N)\) &
@@ -180,56 +180,56 @@ Table~\ref{tab:dps-guideline} provides the planned structure of the full annotat
     \end{tabularx}
 \end{table}
 
-The final guideline should also clarify the scoring scheme used for each dimension. For example, dimensions such as Pressure, Contextual Deception, Sneaking, and Forced Action may be treated as binary labels, while dimensions such as Interface Interference, Friction, and Nagging may allow ordinal levels if the annotation protocol distinguishes between weak and strong exposure. Any such scoring choice should be reported consistently in the final appendix.
+The scoring scheme combines binary indicators and numeric exposure scores. Pressure, Contextual Deception, Sneaking, and Forced Action are typically treated as binary labels in the present dataset. Interface Interference, Friction, and Nagging may use ordinal levels or counts when the annotation protocol distinguishes weak from strong exposure, additional effort, or repeated interruption. Occurrence-rate analysis uses \(D_i>0\), while intensity analysis uses raw score means.
 
 \section{Appendix D: Full Heatmaps}
 \label{app:full-heatmaps}
 
-Appendix D provides the complete set of DPS heatmaps for all audited applications and profiles. In the main report, only representative heatmaps are shown to illustrate the most important exposure patterns. The appendix should include the full visualization set so that readers can inspect the distribution of dark pattern exposure across the complete experimental scope.
+Appendix D provides the complete set of DPS heatmaps for all audited applications and profiles. In the main report, only representative heatmaps are shown to illustrate the most important exposure patterns. The appendix includes the full visualization set so that readers can inspect the distribution of dark pattern exposure across the complete experimental scope.
 
-Each heatmap should use the DPS dimensions as one axis and either applications, profiles, or application categories as the other axis, depending on the visualization design. These heatmaps are intended to support the main finding that different profiles show different exposure patterns. They also allow readers to identify which DPS dimensions are more prominent in particular app categories.
+Each heatmap uses the DPS dimensions as one axis and either applications, profiles, or application categories as the other axis, depending on the visualization design. These heatmaps are intended to support the main finding that different profiles show different exposure patterns. They also allow readers to identify which DPS dimensions are more prominent in particular app categories.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/heatmap_mean_exposure_all.png}
-    \caption{Complete mean DPS exposure heatmap for all applications and controlled profiles.}
+    \caption{Complete raw DPS intensity mean heatmap for all applications and controlled profiles.}
     \label{fig:full-heatmap-all}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/heatmap_shopping.png}
-    \caption{Detailed DPS exposure heatmap for shopping applications.}
+    \caption{Detailed raw DPS intensity heatmap for shopping applications.}
     \label{fig:heatmap-shopping-detail}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/heatmap_eating.png}
-    \caption{Detailed DPS exposure heatmap for food-delivery and eating-related applications.}
+    \caption{Detailed raw DPS intensity heatmap for food-delivery and eating-related applications.}
     \label{fig:heatmap-eating-detail}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/heatmap_entertainment.png}
-    \caption{Detailed DPS exposure heatmap for entertainment applications.}
+    \caption{Detailed raw DPS intensity heatmap for entertainment applications.}
     \label{fig:heatmap-entertainment-detail}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/heatmap_social.png}
-    \caption{Detailed DPS exposure heatmap for social applications.}
+    \caption{Detailed raw DPS intensity heatmap for social applications.}
     \label{fig:heatmap-social-detail}
 \end{figure}
 
-The captions in this appendix should describe what each heatmap represents without restating unsupported causal claims. For example, the text should use careful language such as ``the heatmap indicates higher observed exposure'' or ``the pattern suggests profile-associated differences in exposure.''
+The captions in this appendix describe what each heatmap represents without restating unsupported causal claims. The text uses careful language such as ``the heatmap indicates higher observed exposure'' or ``the pattern suggests profile-associated differences in exposure.''
 
 \section{Appendix E: Statistical Visualization Set}
 \label{app:statistical-visualizations}
 
-Appendix E includes the complete statistical visualization set currently exported by the analysis pipeline. These figures complement the main report by showing q-value patterns, permutation-test summaries, observed L1 distances, and Cramér's \(V\) association strengths. Running mean convergence curves should be added here when the corresponding figures are exported from the analysis script.
+Appendix E includes the complete statistical visualization set currently exported by the analysis pipeline. These figures complement the main report by showing q-value patterns, permutation-test summaries, observed L1 distances, Cramér's \(V\) association strengths, and running mean convergence curves.
 
 For a DPS dimension \(d\), the running mean after \(t\) interaction steps can be written as
 \[
@@ -242,71 +242,71 @@ where \(A\) denotes the controlled profile and \(D_{A,d}^{(\tau)}\) denotes the 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_all.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap across all audited applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for raw DPS intensity comparisons across all audited applications.}
     \label{fig:qvalue-all-appendix}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_shopping.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap for shopping applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for raw DPS intensity comparisons in shopping applications.}
     \label{fig:qvalue-shopping}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_eating.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap for food-delivery and eating-related applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for raw DPS intensity comparisons in food-delivery and eating-related applications.}
     \label{fig:qvalue-eating}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_entertainment.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap for entertainment applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for raw DPS intensity comparisons in entertainment applications.}
     \label{fig:qvalue-entertainment}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/mannwhitney_qvalue_heatmap_social.png}
-    \caption{Mann-Whitney U BH FDR q-value heatmap for social applications.}
+    \caption{Mann-Whitney U BH FDR q-value heatmap for raw DPS intensity comparisons in social applications.}
     \label{fig:qvalue-social}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/permutation_pvalues_by_scope.png}
-    \caption{Permutation-test p-values by comparison scope.}
+    \caption{Permutation-test p-values by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:permutation-pvalues-appendix}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/permutation_observed_l1_by_scope.png}
-    \caption{Observed \(L_1\) exposure distances by comparison scope.}
+    \caption{Observed \(L_1\) exposure distances by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:permutation-l1-appendix}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/cramers_v_by_scope.png}
-    \caption{Cramér's \(V\) association strength by comparison scope.}
+    \caption{Cramér's \(V\) association strength by comparison scope based on binarized occurrence \(D_i>0\).}
     \label{fig:cramers-v-appendix}
 \end{figure}
 
-The full convergence curves should be interpreted as descriptive stability evidence rather than proof of causal convergence. If the running mean becomes less volatile after repeated interactions, this suggests that the fixed interaction budget is sufficient to produce a more stable estimate of profile-conditioned exposure. However, the appendix should also note that longer-term interaction histories may still reveal additional exposure dynamics.
+The full convergence curves are interpreted as descriptive stability evidence rather than proof of causal convergence. If the running mean becomes less volatile after repeated interactions, this suggests that the target interaction budget is sufficient to produce a more stable estimate of profile-conditioned exposure within the archived trajectory. However, longer-term interaction histories may still reveal additional exposure dynamics.
 
 \section{Appendix F: Statistical Validation Notes}
 \label{app:statistical-validation-tables}
 
-Appendix F documents how the statistical validation results should be interpreted. The main report and Appendix~\ref{app:statistical-visualizations} report the exported plots for p-values, q-values, L1 distance, and Cramér's \(V\). These plots should be read together rather than as independent proof from any single statistic.
+Appendix F documents how the statistical validation results are interpreted. The main report and Appendix~\ref{app:statistical-visualizations} report the exported plots for p-values, q-values, L1 distance, and Cramér's \(V\). These plots are read together rather than as independent proof from any single statistic.
 
-The statistical validation should be presented as evidence of association rather than causation. Since the experiment compares controlled profile-conditioned interaction traces, significant differences indicate that observed exposure patterns are unlikely to be explained solely by random profile assignment under the tested conditions. They should not be interpreted as proving that the application intentionally targets a particular user group.
+The statistical validation is presented as evidence of association rather than causation. Since the experiment compares controlled profile-conditioned interaction traces, significant differences indicate that observed exposure patterns are unlikely to be explained solely by random profile assignment under the tested conditions. They are not interpreted as proving that the application intentionally targets a particular user group.
 
 The permutation test summary describes how profile labels are randomly reassigned to construct a null distribution of exposure differences. The observed exposure gap is then compared against this null distribution. Low permutation p-values suggest that the observed gap is unusually large under random reassignment, while larger p-values suggest weaker evidence for a profile-associated difference.
 
-In addition to statistical significance, the appendix should report practical difference measures. The \(L_1\) distance between two profile-level DPS exposure vectors can be used to describe the magnitude of exposure difference:
+In addition to statistical significance, the appendix reports practical difference measures. The \(L_1\) distance between two profile-level DPS exposure vectors is used to describe the magnitude of exposure difference:
 \[
 L_1(A_i, A_j) = \sum_{d \in DPS} 
 \left| E(D_d \mid A_i) - E(D_d \mid A_j) \right|.

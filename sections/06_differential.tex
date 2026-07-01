@@ -12,7 +12,7 @@ D_t = [I_t, F_t, P_t, C_t, S_t, N_t, FA_t],
 
 where \(I_t\) denotes Interface Interference, \(F_t\) denotes Friction, \(P_t\) denotes Pressure, \(C_t\) denotes Contextual Deception, \(S_t\) denotes Sneaking, \(N_t\) denotes Nagging, and \(FA_t\) denotes Forced Action. The vector \(D_t\) therefore represents the dark pattern exposure observed in a single interface state at step \(t\). This formulation follows the broader idea in dark pattern research that deceptive or manipulative interface mechanisms can be operationalized into observable categories rather than treated only as anecdotal examples \cite{gray2018darkpatterns,mathur2019darkpatterns,mathur2021whatmakesdark}.
 
-The single-step vector is intentionally simple. It does not attempt to explain why the interface state appeared, nor does it claim that the user profile caused the application to display that state. Instead, it provides a structured measurement of what was observed after a controlled interaction. This distinction is important because the project is designed as a profile-aware audit of exposure, not as a causal inference study of platform decision-making. A single vector \(D_t\) should therefore be interpreted as one observed unit of exposure within a longer interaction trajectory.
+The single-step vector is intentionally simple. It does not attempt to explain why the interface state appeared, nor does it claim that the user profile caused the application to display that state. Instead, it provides a structured measurement of what was observed after a controlled interaction. A raw component \(D_{t,d}\) is a numeric exposure score, and the binary occurrence variable for that component is \(1[D_{t,d}>0]\). This distinction is important because the project is designed as a profile-aware audit of exposure, not as a causal inference study of platform decision-making. A single vector \(D_t\) should therefore be interpreted as one observed unit of exposure within a longer interaction trajectory.
 
 \section{Profile-level Exposure}
 
@@ -21,12 +21,12 @@ While a single screenshot can reveal whether a particular interface state contai
 For a given profile \(A\), the profile-level exposure is defined as the empirical mean of all single-step DPS vectors collected under that profile:
 
 \[
-E(D \mid A) = \frac{1}{T}\sum_{t=1}^{T} D_t.
+E(D \mid A) = \frac{1}{n_A}\sum_{t=1}^{n_A} D_t.
 \]
 
-Here, \(T\) is the number of audited interaction steps for profile \(A\), and \(D_t\) is the DPS vector observed at step \(t\). In the project design, each profile is audited through repeated controlled interactions, and the resulting vectors are averaged to estimate the typical exposure pattern associated with that profile.
+Here, \(n_A\) is the effective number of audited interaction steps available for profile \(A\), and \(D_t\) is the DPS vector observed at step \(t\). In the project design, each profile is assigned the same target budget, but the archived analysis uses the effective observed length because five trajectories end before the 30-step target. Each profile is audited through repeated controlled interactions, and the resulting vectors are averaged to estimate the typical exposure pattern associated with that profile.
 
-Each dimension of \(E(D \mid A)\) represents the proportion of interaction steps in which the corresponding dark pattern dimension appeared for profile \(A\). For example, if the Pressure dimension of \(E(D \mid A)\) is \(0.40\), this means that pressure-related mechanisms appeared in approximately 40 percent of the audited interaction states for that profile. Similarly, a higher Forced Action value indicates that the profile more frequently encountered interface states requiring account creation, login, permission granting, or another mandatory action before continuing. This interpretation makes the exposure vector intuitive: it converts a sequence of annotated screenshots into a compact profile-level summary.
+Each dimension of \(E(D \mid A)\) represents either a raw intensity mean or a binary occurrence rate, depending on the analysis. For occurrence-rate analysis, each raw score is first converted to \(1[D_{t,d}>0]\), so a Pressure value of \(0.40\) means that pressure-related mechanisms appeared in approximately 40 percent of the audited interaction states for that profile. For intensity analysis, the raw numeric values are averaged directly, so means can exceed 1 for dimensions scored with counts or ordinal levels. This interpretation makes the exposure vector intuitive while preserving the distinction between whether a mechanism appears and how strongly it appears.
 
 The profile-level estimate is especially useful because the project constructs three controlled user profiles: a high-payment shopping profile, a low-payment browsing profile, and a bargain-hunter profile. These profiles differ in their interest distributions and behavior distributions, but they exclude demographic attributes to improve controllability and reproducibility. Therefore, \(E(D \mid A)\) estimates profile-conditioned exposure under controlled behavioral assumptions rather than exposure for real demographic groups.
 
@@ -35,10 +35,10 @@ The profile-level estimate is especially useful because the project constructs t
 The profile-level estimate summarizes exposure across the audit data for a given profile, but it does not show whether profile differences are consistent within the same application. To address this, the framework also defines application-level exposure:
 
 \[
-E(D \mid A, app) = \frac{1}{T}\sum_{t=1}^{T} D_{app,A,t}.
+E(D \mid A, app) = \frac{1}{n_{\mathrm{app},A}}\sum_{t=1}^{n_{\mathrm{app},A}} D_{app,A,t}.
 \]
 
-In this expression, \(D_{app,A,t}\) denotes the DPS vector observed in application \(app\), under profile \(A\), at interaction step \(t\). The value \(T\) refers to the number of interaction steps conducted for that profile within that application. This estimate allows the analysis to compare different profiles while holding the application fixed.
+In this expression, \(D_{app,A,t}\) denotes the DPS vector observed in application \(app\), under profile \(A\), at interaction step \(t\). The value \(n_{\mathrm{app},A}\) refers to the effective number of archived interaction steps for that profile within that application. This estimate allows the analysis to compare different profiles while holding the application fixed.
 
 Application-level exposure is important because different mobile applications may implement different interface strategies. A shopping application may emphasize discounts, urgency, and recommendation placement, while a food-delivery application may rely more heavily on login gates, membership prompts, or payment-related decision points. By computing \(E(D \mid A, app)\), the framework can ask whether the high-payment profile encounters more pressure-related exposure than the low-payment profile inside the same application, rather than merely across the full dataset.
 
@@ -95,7 +95,7 @@ Figure~\ref{fig:method-l1-distance} illustrates how the \(L_1\) distance is repo
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/statistics/permutation_observed_l1_by_scope.png}
-    \caption{Representative visualization of observed \(L_1\) exposure distances across comparison scopes.}
+    \caption{Representative visualization of observed \(L_1\) exposure distances across comparison scopes based on binarized occurrence \(D_i>0\).}
     \label{fig:method-l1-distance}
 \end{figure}
 
@@ -109,7 +109,7 @@ Because a single screenshot can be unstable, the project also examines how expos
 
 The running mean \(\bar{D}_t\) represents the estimated exposure vector after the first \(t\) interaction steps. As \(t\) increases, the estimate incorporates more observations and becomes less sensitive to any single screenshot. These curves are used to examine whether the profile-level exposure estimate stabilizes as more steps are added.
 
-This stabilization analysis supports the fixed 30-step audit design. If exposure estimates continue to fluctuate heavily after many steps, the audit budget may be insufficient. If the running means gradually stabilize, then the final estimate at \(T=30\) becomes more reliable as a summary of the audited trajectory. In this project, the observed stabilization pattern suggests that repeated interaction is necessary and that the fixed-step design provides a more robust estimate than single-state inspection. Nevertheless, stabilization should be understood as empirical support for the audit design, not as proof that all possible long-term exposure patterns have been captured.
+This stabilization analysis evaluates the target 30-step audit budget. If exposure estimates continue to fluctuate heavily after many steps, the audit budget may be insufficient. If the running means gradually stabilize, then the final estimate at the effective trajectory length \(n_{\mathrm{app},A}\) becomes more reliable as a summary of the audited trajectory. In this project, the observed stabilization pattern suggests that repeated interaction is necessary and that the target-budget design provides a more robust estimate than single-state inspection. Nevertheless, stabilization should be understood as empirical support for the audit design, not as proof that all possible long-term exposure patterns have been captured.
 
 \section{Statistical Validation}
 
@@ -131,7 +131,7 @@ For the \(q\)-value correction, the report uses Benjamini-Hochberg false-discove
 
 The Mann-Whitney U test is used for dimension-level comparison between two profiles, and its \(p\)-values are then adjusted with the same Benjamini-Hochberg procedure to obtain dimension-level \(q\)-values. The permutation test, by contrast, is reserved for profile-label randomization over the profile-level or category-level exposure gap.
 
-The framework also uses Cramér's \(V\) to measure the strength of association between profile type and DPS exposure. In the reported analysis, Cramér's \(V\) is computed from contingency tables built on binarized DPS presence, where each annotation is converted to present versus absent before tabulation. If an ordinal 0/1/2 scoring scheme were used in a future extension, the current statistic would require collapsing the positive levels into a binary presence indicator or replacing Cramér's \(V\) with an ordinal association measure. In the present report, the binary contingency formulation keeps the statistic aligned with the annotation scheme used for the audited data.
+The framework also uses Cramér's \(V\) to measure the strength of association between profile type and DPS exposure. In the reported analysis, Cramér's \(V\) is computed from contingency tables built on binarized DPS occurrence, where each raw score is converted to present versus absent using \(D_i>0\) before tabulation. If future work uses richer ordinal or count scales, the current statistic would require collapsing the positive levels into a binary occurrence indicator or replacing Cramér's \(V\) with an ordinal association measure. In the present report, the binary contingency formulation keeps the statistic aligned with occurrence-rate analysis, while raw means are interpreted as intensity.
 
 Together, Mann-Whitney U tests, permutation tests, Benjamini-Hochberg \(q\)-values, \(L_1\) distance, and Cramér's \(V\) provide complementary evidence. The Mann-Whitney U test evaluates dimension-level separation, the permutation test evaluates whether the observed gap exceeds random reassignment, the \(q\)-value reduces the risk of overinterpreting multiple comparisons, the \(L_1\) distance summarizes the practical magnitude of difference between profiles, and Cramér's \(V\) estimates the association strength between profile type and exposure. By combining these measures, the project avoids relying on a single statistic and provides a more cautious assessment of profile-conditioned dark pattern exposure.
 

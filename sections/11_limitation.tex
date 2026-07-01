@@ -17,11 +17,11 @@ Future work should add multiple annotators, measure inter-annotator agreement, a
     \label{fig:limitations_map}
 \end{figure}
 
-\section{Fixed Interaction Budget}
+\section{Target Interaction Budget}
 
-The limitation is that every app-profile pair is observed under a fixed 30-step interaction budget. This matters because some exposure mechanisms are cumulative: recommendations, promotions, retention prompts, and permission requests may only appear after longer account histories or repeated engagement.
+The limitation is that every app-profile pair is assigned a target 30-step interaction budget, while the archived analyzable data contain five shorter trajectories. This matters because some exposure mechanisms are cumulative: recommendations, promotions, retention prompts, and permission requests may only appear after longer account histories or repeated engagement.
 
-This report mitigates that limitation by treating 30 steps as a controlled audit window rather than a claim about full-life app usage. The running mean curves show that several exposure estimates stabilize within the available budget, so the fixed-length design still provides a meaningful basis for cross-profile comparison. The key value of the study is comparative measurement under identical conditions, not exhaustive simulation of user lifetime behavior.
+This report mitigates that limitation by treating 30 steps as a target audit window rather than a claim about full-life app usage. The analysis uses the effective observed length \(n_{\mathrm{app},A}\) for each app-profile trajectory, and the running mean curves show that several exposure estimates stabilize within the available 20--30 observed steps. The key value of the study is comparative measurement under a shared target protocol, not exhaustive simulation of user lifetime behavior.
 
 Future work should vary trajectory length, use convergence-based stopping rules, or run repeated audits over longer periods. That extension belongs in Chapter 12, but it does not reduce the usefulness of the present results: within the chosen window, the framework can still distinguish profile-conditioned exposure patterns in a reproducible way.
 
@@ -52,6 +52,12 @@ This matters because the same exposure gap can be produced by several mechanisms
 The report mitigates this by using careful language, by pairing exposure estimates with permutation-based validation, and by limiting the interpretation to what is actually observed. That restraint strengthens the paper rather than weakening it: the contribution is a defensible black-box audit of visible outcomes, which is exactly the right level of evidence for the available data.
 
 Future work should use designs that separate direct effects from mediated effects, or otherwise support stronger counterfactual claims. Chapter 12 already outlines that direction. For the current report, the observational framing is still effective because it avoids overclaiming while still showing that profile-conditioned exposure differences are measurable and repeatable.
+
+\section{Nested Step-level Records}
+
+The statistical analysis treats step-level records as the main observations, but those records are nested within app-profile trajectories. Consecutive steps from the same trajectory are not fully independent because they share the same app, profile configuration, account state, session history, and interaction context. This nesting means that ordinary step-level tests can understate uncertainty if they ignore within-trajectory dependence.
+
+The current statistical results should therefore be interpreted as descriptive and association-oriented evidence for the archived audit sample. Future work should use methods that respect the trajectory structure, such as block permutation at the app-profile trajectory level, clustered bootstrap confidence intervals, or mixed-effects models with random effects for apps and trajectories. These methods would provide more reliable uncertainty estimates when the framework is scaled to larger and more balanced datasets.
 
 \section{Manual Persona Design}
 

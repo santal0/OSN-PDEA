@@ -31,7 +31,7 @@ This setup allows the experiment to ask whether interface exposure differs when 
 \section{Interaction Budget and Dataset Scale}
 \label{subsec:interaction-budget}
 
-For each application and each profile, the audit runs for thirty interaction steps. With sixteen applications and three profiles, this produces:
+For each application and each profile, the audit targets thirty interaction steps. With sixteen applications and three profiles, this planned protocol produces:
 \[
 16 \ \text{apps} \times 3 \ \text{profiles} \times 30 \ \text{steps} = 1{,}440 \ \text{interaction records}.
 \]
@@ -39,12 +39,13 @@ Each interaction record is annotated using the seven-dimensional DPS vector:
 \[
 DPS = [I, F, P, C, S, N, FA],
 \]
-where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Since each record contains seven DPS labels, the full dataset contains:
+where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Since each record contains seven DPS labels, the planned protocol contains:
 \[
 1{,}440 \times 7 = 10{,}080 \ \text{DPS labels}.
 \]
+The archived analyzable dataset is slightly smaller: it contains 1{,}403 interaction records and 9{,}821 DPS labels because five app-profile trajectories ended before the 30-step target. Analyses use the effective trajectory length for each app-profile pair, denoted \(T_{\mathrm{app},A}\) or \(n_{\mathrm{app},A}\), rather than assuming that every observed trajectory has exactly thirty records.
 
-The choice of thirty steps reflects a balance between feasibility and repeated exposure estimation. A single screenshot would be too fragile because dark pattern exposure may depend on timing, page state, recommendation flow, login status, promotion availability, or the user's previous actions within the app. Repeated interactions provide a more stable basis for estimating profile-conditioned exposure \(E(D \mid A)\). At the same time, the audit remains small enough to be manually executed and annotated within the constraints of a course project. The running mean convergence curves introduced later in the report are used to examine whether exposure estimates gradually stabilize as more interaction steps are collected. In this sense, the fixed interaction budget is not assumed to be perfect; instead, it is treated as an experimental design choice whose stability can be evaluated empirically.
+The target budget of thirty steps reflects a balance between feasibility and repeated exposure estimation. A single screenshot would be too fragile because dark pattern exposure may depend on timing, page state, recommendation flow, login status, promotion availability, or the user's previous actions within the app. Repeated interactions provide a more stable basis for estimating profile-conditioned exposure \(E(D \mid A)\). At the same time, the audit remains small enough to be manually executed and annotated within the constraints of a course project. The running mean convergence curves introduced later in the report are used to examine whether exposure estimates gradually stabilize as more interaction steps are collected. In this sense, the target interaction budget is not assumed to be perfect; instead, it is treated as an experimental design choice whose stability can be evaluated empirically.
 
 \begin{figure}[htbp]
     \centering
@@ -58,7 +59,7 @@ The choice of thirty steps reflects a balance between feasibility and repeated e
 
 The experiment uses several controls to reduce unrelated noise and improve comparability across profiles. When possible, new accounts are created for the audit so that prior user histories do not dominate the observed app behavior. Browsing histories, search histories, and other locally stored traces are cleared before the experiment where the application and device environment allow it. The same device configuration is used across profiles, and the same app version is maintained when possible. These controls are important because mobile applications may adapt their interfaces based on device settings, account histories, location permissions, app version, cached behavior, or previous search and browsing activity.
 
-The experiment also keeps the number of interaction steps constant across all app-profile pairs. Each profile receives thirty steps in each application, so exposure differences are not caused by one profile simply interacting more than another. A fixed waiting time is used before screenshots are captured, so that dynamic interface elements have time to load and the screenshot timing is more consistent. The same DPS annotation rules are applied across all records. This helps ensure that a label such as pressure, friction, or forced action is interpreted according to the same criteria regardless of the application or profile.
+The experiment uses the same target number of interaction steps across all app-profile pairs. Each profile is assigned a thirty-step target in each application, so the planned comparison is not designed around one profile simply interacting more than another. Because five archived trajectories are shorter, the actual analysis uses the effective observed length \(n_{\mathrm{app},A}\) for each app-profile pair. A fixed waiting time is used before screenshots are captured, so that dynamic interface elements have time to load and the screenshot timing is more consistent. The same DPS annotation rules are applied across all records. This helps ensure that a label such as pressure, friction, or forced action is interpreted according to the same criteria regardless of the application or profile.
 
 Most importantly, the intended differences among profiles are introduced only through behavior probabilities and keyword pools. The device, annotation framework, interaction budget, and screenshot procedure are kept as similar as possible. This does not eliminate all possible confounding factors, since mobile applications are dynamic systems and may change over time. However, these controls reduce unrelated variation and make the comparison more focused on the relationship between controlled profile behavior and observed dark pattern exposure.
 
@@ -88,7 +89,7 @@ For clarity, the procedure can be summarized as follows:
     \item Annotate the screenshot using the seven-dimensional DPS vector \([I,F,P,C,S,N,FA]\).
     \item Save the step-level record, including \texttt{app\_name}, \texttt{app\_category}, \texttt{profile}, \texttt{step\_id}, \texttt{action}, \texttt{keyword}, \texttt{screenshot\_path}, \texttt{I}, \texttt{F}, \texttt{P}, \texttt{C}, \texttt{S}, \texttt{N}, \texttt{FA}, \texttt{timestamp}, and \texttt{notes}.
     \item Update the running mean exposure estimate for each DPS dimension using all records collected so far in the current trajectory.
-    \item Repeat the process until thirty steps are completed for the current application-profile pair.
+    \item Repeat the process until the target budget of thirty steps is completed for the current application-profile pair, or record the effective observed length \(n_{\mathrm{app},A}\) if the trajectory ends early.
 \end{enumerate}
 
 This step-by-step procedure supports reproducibility because each record can be traced back to a profile, an action, a keyword if applicable, and a screenshot. It also makes the audit trajectory explicit, allowing later analysis to estimate exposure not only from isolated screenshots but from repeated interaction sequences.

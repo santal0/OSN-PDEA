@@ -4,7 +4,7 @@
 
 A central methodological challenge in this project is how to convert mobile application screenshots into analyzable evidence of dark pattern exposure. Prior research on dark patterns has developed conceptually rich taxonomies that distinguish many types of deceptive or manipulative interface designs, including nagging, obstruction, sneaking, interface interference, forced action, scarcity messages, social proof, hidden costs, preselection, and other forms of choice manipulation \cite{gray2018darkpatterns,mathur2019darkpatterns,mathur2021whatmakesdark}. These taxonomies are valuable because they reveal the diversity of dark pattern mechanisms and provide a theoretical vocabulary for discussing how interfaces may influence user decisions. However, their richness also creates a practical difficulty for screenshot-level annotation. When an annotator observes a single screen in a mobile app, it is often difficult to decide which fine-grained category best describes the interface, especially when several mechanisms appear simultaneously.
 
-For example, a membership popup may visually emphasize an ``Activate Now'' button, hide the close icon, and use wording that suggests the offer is urgent. A fine-grained taxonomy might classify these elements separately as visual interference, obstruction, urgency, or misdirection. In practice, however, requiring annotators to choose from many overlapping labels can reduce consistency and make large-scale annotation difficult. Since this project collects 1,440 interaction records and assigns seven labels to each record, producing 10,080 DPS labels in total, the annotation scheme must be compact, reproducible, and easy to apply across different apps and profiles.
+For example, a membership popup may visually emphasize an ``Activate Now'' button, hide the close icon, and use wording that suggests the offer is urgent. A fine-grained taxonomy might classify these elements separately as visual interference, obstruction, urgency, or misdirection. In practice, however, requiring annotators to choose from many overlapping labels can reduce consistency and make large-scale annotation difficult. The protocol targeted 1,440 interaction records and 10,080 dimension-level DPS labels, and the archived analyzable dataset contains 1,403 records and 9,821 DPS labels. At this scale, the annotation scheme must be compact, reproducible, and easy to apply across different apps and profiles.
 
 The DPS framework is designed to address this need. Instead of reproducing every category from previous taxonomies, it abstracts common dark pattern mechanisms into seven dimensions that can be applied at the screenshot level. This abstraction does not replace prior taxonomies; rather, it operationalizes them for the specific purpose of profile-aware auditing. The goal is not to identify every possible subtype of dark pattern, but to measure whether different controlled user profiles are exposed to different kinds of manipulative interface mechanisms during mobile app interaction. In this sense, DPS serves as a bridge between qualitative dark pattern concepts and quantitative exposure analysis.
 
@@ -25,7 +25,7 @@ The project represents dark pattern exposure using a seven-dimensional vector ca
 \mathrm{DPS} = [I, F, P, C, S, N, FA],
 \]
 
-where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Each screenshot collected during the interaction trajectory is converted into one DPS vector. The vector records whether the screen contains observable evidence of each dimension.
+where \(I\) denotes Interface Interference, \(F\) denotes Friction, \(P\) denotes Pressure, \(C\) denotes Contextual Deception, \(S\) denotes Sneaking, \(N\) denotes Nagging, and \(FA\) denotes Forced Action. Each screenshot collected during the interaction trajectory is converted into one DPS vector. The vector records observable exposure for each dimension. Some dimensions are naturally binary, while others are recorded as numeric exposure scores when the annotation protocol distinguishes intensity, repeated interruption, or additional effort.
 
 This vector-based representation has three advantages.
 
@@ -35,7 +35,7 @@ This vector-based representation has three advantages.
     \item It supports quantitative comparison across profiles. Once every screenshot is represented as a vector, exposure can be aggregated by app, profile, step, or DPS dimension.
 \end{itemize}
 
-In the current implementation, each dimension is annotated as a binary label. For a given screenshot, the value of a dimension is 1 if the corresponding mechanism is present and 0 if it is absent. For example, a screenshot with a countdown timer and a visually emphasized purchase button might be annotated as having pressure and interface interference. A screenshot that requires the user to log in before browsing may be annotated as forced action. The following subsections define each DPS dimension and provide practical annotation guidance.
+In the current implementation, DPS is treated as a mixed numeric exposure vector. For a given screenshot, a dimension value of 0 means that the corresponding mechanism is absent, and any value greater than 0 means that it is present. Binary dimensions are coded as 0 or 1. Intensity-oriented dimensions can use larger nonzero scores, such as an ordinal interference score, an extra-operation count for friction, or a repeated-interruption count for nagging. For occurrence-rate analysis, the project binarizes the raw score using \(D_i>0\). For intensity analysis, it averages the raw scores directly. The following subsections define each DPS dimension and provide practical annotation guidance.
 
 \section{Interface Interference}
 
@@ -95,13 +95,13 @@ Annotators should mark Forced Action as present when access to the user's appare
 
 \section{Annotation Scale}
 
-In the current version of the DPS framework, each dimension is annotated using a binary scale:
+In the current version of the DPS framework, each dimension is represented as a nonnegative numeric exposure score:
 
 \[
-d_i \in \{0, 1\},
+d_i \geq 0,
 \]
 
-where \(d_i = 1\) means that the corresponding DPS dimension is present in the screenshot, and \(d_i = 0\) means that it is absent. A complete DPS vector therefore consists of seven binary values. For example, a screenshot may be represented as:
+where \(d_i = 0\) means that the corresponding DPS dimension is absent in the screenshot, and \(d_i>0\) means that it is present. Binary dimensions use 0 and 1. Numeric dimensions can use larger values when the protocol records intensity, added effort, or recurrence. A complete DPS vector therefore consists of seven nonnegative scores. For example, a screenshot may be represented as:
 
 \[
 [1, 0, 1, 0, 0, 0, 0],
@@ -109,9 +109,9 @@ where \(d_i = 1\) means that the corresponding DPS dimension is present in the s
 
 which indicates that Interface Interference and Pressure are present, while Friction, Contextual Deception, Sneaking, Nagging, and Forced Action are absent.
 
-The binary scale is chosen for consistency and feasibility. Since the experiment involves 16 apps, 3 profiles, and 30 interaction steps per profile-app pair, the annotation workload is already substantial. A binary scheme reduces ambiguity and allows annotators to focus on whether a mechanism is observable. It also supports straightforward aggregation. For each profile \(A\), the project can estimate the expected exposure \(E(D \mid A)\) by averaging DPS labels across records. Pairwise differences between profiles can then be computed as \(\Delta(A_i, A_j)\), and statistical validation can be conducted using permutation tests, q-values, L1 distance, and Cramér's V.
+The mixed numeric scale is chosen because several DPS dimensions have meaningful intensity variation. Interface Interference can vary from mild salience imbalance to a strongly dominant platform-preferred path. Friction can be represented by the additional number of operations required to refuse, cancel, or exit relative to accepting or continuing. Nagging can be represented by a repeated-interruption count within the trajectory. Pressure, Contextual Deception, Sneaking, and Forced Action are usually coded as binary indicators in the present dataset, but the framework still treats all dimensions as components of one numeric exposure vector.
 
-Future work could extend the binary scale to ordinal scores such as 0, 1, and 2, where 0 indicates absence, 1 indicates weak or moderate presence, and 2 indicates strong presence. Such an extension would allow more nuanced measurement of severity. For example, a small countdown label and a full-screen urgent warning might both be labeled as Pressure under the binary scale, while an ordinal scale could distinguish their intensity. However, ordinal scoring also requires stronger annotation guidelines and reliability checks. For the present course project, the binary scale provides a practical balance between expressiveness and consistency.
+This scale supports two complementary analyses. Occurrence-rate analysis first converts each raw score to \(1[D_i>0]\), so the mean is interpretable as the proportion of records in which a DPS dimension appears. Intensity analysis averages the raw numeric values, so means can exceed 1 for dimensions scored with counts or ordinal levels. Table captions and figure captions distinguish these two cases. Pairwise differences between profiles can then be computed as \(\Delta(A_i, A_j)\), and statistical validation can be conducted using permutation tests, q-values, L1 distance, and Cramér's V. Categorical association statistics such as Cramér's \(V\) use the binarized occurrence variable, while raw-score heatmaps and mean tables report intensity.
 
 \begin{figure}[htbp]
     \centering
